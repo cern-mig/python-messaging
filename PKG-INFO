@@ -1,0 +1,26 @@
+Metadata-Version: 1.0
+Name: messaging
+Version: 0.1
+Summary: Messaging related modules
+Home-page: UNKNOWN
+Author: Massimo Paladin
+Author-email: massimo.paladin@gmail.com
+License: ASL 2.0
+Description: 
+        Messaging related modules
+        
+Platform: Any
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.4
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
