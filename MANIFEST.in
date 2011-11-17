@@ -1,3 +1,2 @@
-include LICENSE Makefile README CHANGES VERSION
+include LICENSE README CHANGES
 include example/*
-exclude **/*.pyc
