@@ -8,6 +8,7 @@ AUTHOR = 'Massimo Paladin'
 AUTHOR_EMAIL = 'massimo.paladin@gmail.com'
 LICENSE = "ASL 2.0"
 PLATFORMS = "Any"
+URL = "https://github.com/mpaladin/python-messaging"
 CLASSIFIERS = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -45,6 +46,7 @@ setup(name=NAME,
       author_email=AUTHOR_EMAIL,
       license=LICENSE,
       platforms=PLATFORMS,
+      url=URL,
       classifiers=CLASSIFIERS,
       packages=['messaging'],
       cmdclass={'test' : test}
