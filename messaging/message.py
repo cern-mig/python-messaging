@@ -371,7 +371,7 @@ class Message(object):
                 obj['encoding'] = {'utf8' : True}
                 if compression == "zlib":
                     tmp = zlib.compress(obj['body'])
-                    if (len(tmp) / len(obj['body'])) < 0.9:
+                    if (float(len(tmp)) / len(obj['body'])) < 0.9:
                         obj['body'] = tmp
                         obj['encoding']["zlib"] = True
                 if obj.get('encoding') and obj['encoding'].get('zlib'):
@@ -384,7 +384,7 @@ class Message(object):
             if compression == "zlib":
                 obj['encoding'] = dict()
                 tmp = zlib.compress(obj['body'])
-                if (len(tmp) / len(obj['body'])) < 0.9:
+                if (float(len(tmp)) / len(obj['body'])) < 0.9:
                     obj['body'] = tmp
                     obj['encoding']["zlib"] = True
             if not is_ascii(obj['body']):
