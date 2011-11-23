@@ -20,7 +20,7 @@ try:
 except NameError:
     pass
 
-TIME = 1
+TIME = 10
 
 def fixed_header():
     """ Return a fixed "reasonable" header. """
