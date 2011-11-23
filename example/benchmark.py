@@ -13,8 +13,6 @@
  limitations under the License.
 """
 
-from messaging.generator import Generator
-import messaging.generator as generator
 from messaging.message import Message, deserialize, destringify, dejsonify
 import time
 try:
@@ -22,85 +20,99 @@ try:
 except NameError:
     pass
 
-CREATION_TIMES = 1000000
+TIME = 1
 
-def benchmark_creation():
+def fixed_header():
+    """ Return a fixed "reasonable" header. """
+    return {
+       "destination"        : "/topic/application.component.destination",
+       "message-id"         : "ID:broker.acme.com-49839-1277292910818-2:4231860:-1:1:1",
+       "content-length"     : "1234",
+       "timestamp"          : "2011-12-13T12:34:56.000Z",
+       "expires"            : "1277292910818",
+       "priority"           : "3",
+       "JMSXUserID"         : "joe.publisher",
+       "sender.site"        : "ACME.COM",
+       "x-message-type"     : "monitoring.data",
+       "x-message-encoding" : "text/json",
+    }
+    
+def body_ascii(length):
+    """ Return a "reasonable" ASCII body """
+    body = ""
+    xor = 21;
+    
+    while len(body) < length:
+        body += "".join(filter(lambda x : ord(x) > 31 and ord(x) < 127,
+                               map(lambda x : chr(x ^ xor), range(255))))
+        xor = (xor + 13) % 255
+    return body[0:length]
+
+def body_text(length):
+    """ Return a "reasonable" text body """
+    text = list("бвайкиосцз")
+    body = list(body_ascii(length))
+    for i in range(int(length / 100)):
+        body[i * 100 - 1] = text[i % 10]
+    return str(body)
+
+#def test(name, times, func, args=dict()):
+#    t1 = time.time()
+#    for i in range(times):
+#        func(**args)
+#    t2 = time.time()
+#    delta = t2 - t1
+#    print("%s x %d : %.2fs @ %.2f/s" %
+#          (name, times, delta, times / delta))
+    
+def test(name, times, func, args=dict()):
     t1 = time.time()
-    for i in range(CREATION_TIMES):
-        Message()
+    counter = 0
+    oldargs = args.copy()
+    while time.time() - t1 < TIME:
+        assert args == oldargs
+        func(**args)
+        counter += 1
     t2 = time.time()
     delta = t2 - t1
-    print("Message() x %d : %.2fs @ %.2f/s" %
-          (CREATION_TIMES, delta, CREATION_TIMES / delta))
-    
-def measure(func, times, args=dict()):
-    t1 = time.time()
-    for i in range(times):
-        func(**args)
-    t2 = time.time()
-    return t2 - t1
-    
-def benchmark_operation():
-    variants = {"binary" : [{"body_size" : 25600, "times" : 10000},
-                            {"body_size" : 256000, "times" : 100},
-                            {"body_size" : 2560000, "times" : 100}],
-                "text" : [{"body_size" : 9500, "times" : 10000},
-                          {"body_size" : 95000, "times" : 1000},
-                          {"body_size" : 950000, "times" : 100}]}
-    operation_options = [{}, {"compression":"zlib"}]
-    header = dict()
-    for i in range(10):
-        header["dummy-key-%d" % i]= "dummy-value-%d" % i
-    for option in operation_options:
-        print("OPTIONS : %s" % option)
-        for key, value in variants.items():
-            for option in value:
-                g = Generator(body_size=option["body_size"], 
-                              body_content=key, header_count=0)
-                msg = g.message()
-                assert(len(msg.body) == option["body_size"])
-                msg.header = header
-                
-                times = option["times"]
-                args = {"option" : option}
-                delta = measure(msg.jsonify, times, args)
-                print("msg[%s%d].jsonify() x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-                
-                times = option["times"]
-                args = {"obj" : msg.jsonify(option)}
-                delta = measure(dejsonify, times, args)
-                print("dejsonify(msg[%s%d]) x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-                
-                times = option["times"]
-                args = {"option" : option}
-                delta = measure(msg.stringify, times)
-                print("msg[%s%d].stringify() x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-                
-                times = option["times"]
-                args = {"string" : msg.stringify(option)}
-                delta = measure(destringify, times, args)
-                print("destringify(msg[%s%d]) x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-                
-                times = option["times"]
-                args = {"option" : option}
-                delta = measure(msg.serialize, times)
-                print("msg[%s%d].serialize() x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-                
-                times = option["times"]
-                args = {"binary" : msg.serialize(option)}
-                delta = measure(deserialize, times, args)
-                print("deserialize(msg[%s%d]) x %d : %.2fs @ %.2f/s" %
-                      (key, option["body_size"], times, delta, times / delta))
-
+    print("%s : %.2fs @ %.2f/s (n=%d)" %
+          (name, delta, counter / delta, counter))
 
 def main():
-    benchmark_creation()
-    benchmark_operation()
+    """ Benchmark it! """
+    header = fixed_header()
+    TIMES = 100000
+    test("new()", TIMES, Message, {})
+    for size in [100, 10000, 1000000]:
+        body = body_ascii(size)
+        msg = Message(header=header, body=body)
+        test("new(B%d)" % size, TIMES, Message, {"header" : header, "body" : body})
+        json = msg.jsonify()
+        test("jsonify(B%d)" % size, TIMES, msg.jsonify, {})
+        test("dejsonify(B%d)" % size, TIMES, dejsonify, {'obj' : json})
+        string = msg.serialize()
+        test("serialize(B%d)" % size, TIMES, msg.serialize, {})
+        test("deserialize(B%d)" % size, TIMES, deserialize, {'binary' : string})
+        if size == 100:
+            continue
+        json = msg.jsonify({'compression' : 'zlib'})
+        test("jsonify(B%d+zlib)" % size, TIMES, msg.jsonify, { 'option' : {'compression' : 'zlib'}})
+        test("dejsonify(B%d+zlib)" % size, TIMES, dejsonify, {'obj' : json})
+        string = msg.serialize({'compression' : 'zlib'})
+        test("serialize(B%d+zlib)" % size, TIMES, msg.serialize, { 'option' : {'compression' : 'zlib'}})
+        test("deserialize(B%d+zlib)" % size, TIMES, deserialize, {'binary' : string})
+    size = 10000
+    body = body_text(size)
+    msg = Message(header=header, body=body)
+    test("new(T%d)" % size, TIMES, Message, {"header" : header, "body" : body})
+    json = msg.jsonify()
+    test("jsonify(T%d)" % size, TIMES, msg.jsonify, {})
+    test("dejsonify(T%d)" % size, TIMES, dejsonify, {'obj' : json})
+    string = msg.serialize()
+    test("serialize(T%d)" % size, TIMES, msg.serialize, {})
+    test("deserialize(T%d)" % size, TIMES, deserialize, {'binary' : string})
 
 if __name__ == "__main__":
+    validate = body_ascii(10)
+    assert len(validate) == 10
     main()

@@ -10,7 +10,7 @@ LICENSE = "ASL 2.0"
 PLATFORMS = "Any"
 URL = "https://github.com/mpaladin/python-messaging"
 CLASSIFIERS = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: Unix",

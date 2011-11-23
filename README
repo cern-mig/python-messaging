@@ -9,7 +9,8 @@ versatile message generator and several message queues/spools to
 locally store messages.
 
 An Perl implementation of the same abstractions and queue algorithms
-is available.
+is available in CPAN:
+http://search.cpan.org/~lcons/Messaging-Message/
 
 INSTALLATION
 
