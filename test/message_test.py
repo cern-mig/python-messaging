@@ -82,7 +82,9 @@ class MessageTest(unittest.TestCase):
         self.assertEqual(msgA, msgB,
                          "Error, not the same after serialization")
         msgC = msgA.clone()
-        self.assertEqual(msgA, msgC, "Error, not the same after cloning")
+        self.assertEqual(msgA, msgC,
+                         "Error, not the same after cloning\n%s\n%s\n" %
+                         (msgA, msgC))
                 
     def test_message_jsonify(self):
         """
@@ -100,7 +102,8 @@ class MessageTest(unittest.TestCase):
         for option in MESSAGE_CONVERT_OPTIONS:
             jsonified = msg.jsonify(option)
             msgB = message.dejsonify(jsonified)
-        self.assertEqual(msg, msgB, "Error in de/jsonification")
+        self.assertEqual(msg, msgB, "Error in de/jsonification:\n%s\n%s\n" %
+                         (msg, msgB))
     
     def test_message_stringify(self):
         """
@@ -118,7 +121,9 @@ class MessageTest(unittest.TestCase):
         for option in MESSAGE_CONVERT_OPTIONS:
             stringified = msg.stringify(option)
             msgB = message.destringify(stringified)
-            self.assertEqual(msg, msgB, "Error in de/stringification")
+            self.assertEqual(msg, msgB,
+                             "Error in de/stringification:\n%s\n%s\n" %
+                             (msg, msgB))
     
     def test_message_serialize(self):
         """

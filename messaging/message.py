@@ -307,7 +307,7 @@ class Message(object):
         """ Initialize the object """
         self.body = body
         self.header = header
-        # self.text = not is_bytes(body) done setting the body
+        #self.text = not is_bytes(body) #done setting the body
         
     def get_body(self):
         """ Returns the body of the message. """
@@ -357,6 +357,8 @@ class Message(object):
         if self.header:
             obj['header'] = self.header
         obj['body'] = self.body
+        if not obj['body']:
+            return obj
         if self.text:
             obj['text'] = True
             if compression:
