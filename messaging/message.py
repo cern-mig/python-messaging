@@ -249,7 +249,7 @@ def is_bytes(string):
     try:
         return isinstance(string, bytes) # python 3
     except NameError:
-        return isinstance(string, unicode)
+        return not isinstance(string, unicode)
 
 def dejsonify(obj):
     """ Returns a message from json structure. """
