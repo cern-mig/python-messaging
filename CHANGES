@@ -1,5 +1,9 @@
 Change log for python-messaging
 
+0.2	Thu Nov 24 2011
+	* [mp] fixing bug affecting compression
+	* [mp] performance improvements
+
 0.1	Thu Nov 17 2011
 	* [mp] first release
 
