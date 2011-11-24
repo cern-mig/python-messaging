@@ -1,5 +1,5 @@
 NAME = 'messaging'
-VERSION = '0.1'
+VERSION = '0.2'
 DESCRIPTION = "Messaging related modules"
 LONG_DESCRIPTION = """
 Messaging related modules
