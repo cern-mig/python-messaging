@@ -247,15 +247,9 @@ def is_ascii(string):
 def is_bytes(string):
     """ Check if given string is a byte string. """
     try:
-        if isinstance(string, bytes): # python 3
-            return True
-        else:
-            return False
+        return isinstance(string, bytes) # python 3
     except NameError:
-        if isinstance(string, unicode):
-            return False
-        else:
-            return True
+        return isinstance(string, unicode)
 
 def dejsonify(obj):
     """ Returns a message from json structure. """
@@ -313,7 +307,7 @@ class Message(object):
         """ Initialize the object """
         self.body = body
         self.header = header
-        self.text = not is_bytes(body)
+        # self.text = not is_bytes(body) done setting the body
         
     def get_body(self):
         """ Returns the body of the message. """
@@ -366,7 +360,6 @@ class Message(object):
         if self.text:
             obj['text'] = True
             if compression:
-                obj['encoding'] = dict()
                 obj['body'] = obj['body'].encode("utf-8")
                 obj['encoding'] = {'utf8' : True}
                 if compression == "zlib":
@@ -409,6 +402,7 @@ class Message(object):
         return stringified.encode('utf-8')
     
     def __repr__(self):
+        """ Return a string representation of the object """
         return self.stringify()
     
     def size(self):
