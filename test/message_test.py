@@ -27,6 +27,7 @@ MESSAGE_CONVERT_OPTIONS = [dict(), {'compression' : 'zlib'}]
 
 _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
+EMPTY_BYTES = ''.encode()
 
 def empty_string():
     """ return empty unicode string based on python version """
@@ -34,10 +35,6 @@ def empty_string():
         return unicode('')
     else:
         return ''
-
-def empty_bytes():
-    """ return empty bytes string """
-    return ''.encode()
 
 class MessageTest(unittest.TestCase):
 
@@ -174,7 +171,7 @@ class MessageTest(unittest.TestCase):
                 if not COMPLIANCE_NAME.match(each):
                     continue
                 filer = open("%s/%s" % (folder, each), 'rb')
-                serialized = empty_bytes().join(filer.readlines())
+                serialized = EMPTY_BYTES.join(filer.readlines())
                 filer.close()
                 msg = message.deserialize(serialized)
                 md5 = re.split('[\.-]', each)[0]
