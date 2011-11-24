@@ -35,7 +35,7 @@ class test(Command):
     def finalize_options(self):
         pass
     def run(self):
-        import run_tests
+        from test import run_tests
         run_tests.main()
 
 setup(name=NAME,
