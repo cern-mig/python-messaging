@@ -1,3 +1,4 @@
 include LICENSE README CHANGES
 include example/*
 include test/*
+include test/compliance/*
