@@ -48,6 +48,7 @@ class DQS(QueueSimple):
         """
         Return a new DQS object.
         """
+        self.__compression = data.pop('compression', None)
         super(DQS, self).__init__(**data)
     
     def add_message(self, msg):
@@ -57,7 +58,11 @@ class DQS(QueueSimple):
         """
         if not isinstance(msg, Message):
             raise TypeError("message type not expected: %s" % msg)
-        return self.add(msg.serialize())
+        compression = self.__compression
+        if compression:
+            return self.add(msg.serialize({'compression' : compression}))
+        else:
+            return self.add(msg.serialize())
     
     def get_message(self, element):
         """
