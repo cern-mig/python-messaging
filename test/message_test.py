@@ -23,6 +23,11 @@ import re
 import sys
 import unittest
 
+try:
+    range=xrange
+except NameError:
+    pass
+
 MESSAGE_CONVERT_OPTIONS = [dict(), {'compression' : 'zlib'}]
 
 _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
@@ -30,22 +35,24 @@ COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
 
 def empty_string():
-    """ return empty unicode string based on python version """
-    if sys.version < '3':
+    """ Return empty unicode string based on python version. """
+    try:
         return unicode('')
-    else:
+    except NameError:
         return ''
 
 class MessageTest(unittest.TestCase):
 
     def setUp(self):
-        """ setup the test environment """
+        """ Setup the test environment. """
     
     def tearDown(self):
-        """ restore the test environment """
+        """ Restore the test environment. """
     
     def iterate(self, func):
-        """ iterate over body_content type and size and call giveb function """
+        """ Iterate over body_content type and size
+        and call giveb function.
+        """
         types = ['index', 'text', 'binary', 'base64']
         header_count = -5
         for type in types:
@@ -55,10 +62,21 @@ class MessageTest(unittest.TestCase):
                      header_count=header_count)
                 
     def test_message_creation(self):
-        """ test message creation """
+        """ Test message creation. """
         print("checking message creation")
         msg = Message(body='dfhkdfgkfd' , header={'l':'ff'})
         print("...message creation ok")
+        
+    def test_message_compression(self):
+        """ Test message compression. """
+        print("checking message compression")
+        length = 10000
+        body = ''.join(['a' for each in range(length)])
+        msg = Message(body=body , header={'l':'ff'})
+        jsonified = msg.jsonify({'compression' : 'zlib'})
+        self.assert_(len(jsonified['body']) < length * 0.9,
+                     "message should have been compressed")
+        print("...message compression ok")
     
     def test_message_fullchain(self):
         """
