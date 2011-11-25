@@ -48,6 +48,6 @@ setup(name=NAME,
       platforms=PLATFORMS,
       url=URL,
       classifiers=CLASSIFIERS,
-      packages=['messaging'],
+      packages=['messaging', 'messaging.queue'],
       cmdclass={'test' : test}
      )
