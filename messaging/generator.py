@@ -34,6 +34,7 @@ __version__ = "$Revision: 1 $"
 
 import base64
 import binascii
+from messaging.error import GeneratorError
 from messaging.message import Message
 import os
 import random
@@ -182,7 +183,7 @@ distributed around 20.
             elif what == 'index':
                 body = "%d" % self.__index
             else:
-                raise ValueError("invalid body content: %s" % what)
+                raise GeneratorError("invalid body content: %s" % what)
         else:
             body = "%d" % self.__index
         count = self.__option.get('header_count', 0)

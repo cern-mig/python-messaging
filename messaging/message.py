@@ -239,7 +239,7 @@ try:
 except ImportError:
     import json
 import sys
-
+from messaging.error import MessageError
 
 COMPRESSORS_SUPPORTED = ["snappy", "zlib"]
 _COMPRESSORS = dict()
@@ -284,7 +284,7 @@ def dejsonify(obj):
         if obj.get('text'):
             is_text = True
     except AttributeError:
-        raise ValueError("dict expected: %s" % obj)
+        raise MessageError("dict expected: %s" % obj)
     header = obj.get('header', dict())
     body = obj.get('body', DEFAULT_BODY)
     encoding = list()
@@ -313,7 +313,7 @@ def destringify(string):
         jsonified = json.loads(string)
     except ValueError:
         error = sys.exc_info()[1]
-        raise ValueError("not a valid json string provided: %s" % error)
+        raise MessageError("not a valid json string provided: %s" % error)
     return dejsonify(jsonified)
     
 def deserialize(binary):
@@ -324,8 +324,8 @@ def deserialize(binary):
             decoded = decoded.decode("utf-8")
     except UnicodeDecodeError:
         error = sys.exc_info()[1]
-        raise ValueError("not a valid binary string %s: %s" 
-                         % (binary, error))
+        raise MessageError("not a valid binary string %s: %s" 
+                           % (binary, error))
     return destringify(decoded)
 
 def _base64_it(obj):
@@ -402,8 +402,8 @@ class Message(object):
         """ Transforms the message to JSON. """
         compression = option.get('compression')
         if compression is not None and not _COMPRESSORS_RE.match(compression):
-            raise ValueError("unsupported compression type: %s" 
-                             % compression)
+            raise MessageError("unsupported compression type: %s" 
+                               % compression)
         obj = dict()
         if self.header:
             obj["header"] = self.header

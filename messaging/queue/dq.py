@@ -65,9 +65,11 @@ class DQ(Queue):
         """
         Add the given message (a Message object) to the queue and
         return the corresponding element name.
+        Raise:
+        - TypeError if the parameter is not a Message.
         """
         if not isinstance(msg, Message):
-            raise TypeError("message type not expected: %s" % msg)
+            raise TypeError("Message expected: %s" % msg)
         data = {"header" : msg.header}
         if msg.text:
             data['text'] = msg.body
@@ -91,6 +93,8 @@ class DQ(Queue):
         """
         Dequeue the message from the given element and
         return a Message object.
+        Raise:
+        TypeError if the parameter is not a string.
         """
         if not isinstance(element, str):
             raise TypeError("string expected: %s" % element)

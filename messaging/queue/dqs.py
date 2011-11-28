@@ -55,6 +55,8 @@ class DQS(QueueSimple):
         """
         Add the given message (a Message object) to the queue and
         return the corresponding element name.
+        Raise:
+        - TypeError if the parameter is not a Message.
         """
         if not isinstance(msg, Message):
             raise TypeError("message type not expected: %s" % msg)
