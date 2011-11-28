@@ -11,8 +11,8 @@ Example:
   importing messaging.message as message
 
   # constructor + setters
-  msg = message.Message();
-  msg.body = "hello world";
+  msg = message.Message()
+  msg.body = "hello world"
   msg.header = {"subject" : "test"}
   msg.header["message-id"] = "123"
 
@@ -30,6 +30,13 @@ Example:
       ...
   }
   id = msg.header["message-id"]
+  
+  # serialize it
+  msg.serialize()
+  # serialize it and compress the body with zlib
+  msg.serialize({"compression" : "zlib"})
+  # serialize it and compress the body with snappy
+  msg.serialize({"compression" : "snappy"})
 
 ===========
 DESCRIPTION
@@ -107,6 +114,9 @@ utf8
 
 zlib
     Zlib compression
+    
+snappy
+    Snappy compression (http://code.google.com/p/snappy/)
 
 Here is for instance the JSON object representing an empty message
 (i.e. the result of Message()):
@@ -149,7 +159,7 @@ its body another message along with error information:
       "time"    : time.time(),
   }
   # create a new message with this body
-  msg2 = message.Message(body = json.dumps($body));
+  msg2 = message.Message(body = json.dumps(body))
   msg2.header["content-type"] = "message/error"
 
 A receiver of such a message can easily decode it:
@@ -223,26 +233,42 @@ try:
 except ImportError:
     import md5
     md5_hash = md5.md5
+import re
 try:
     import simplejson as json
 except ImportError:
     import json
 import sys
-import zlib
+
+
+COMPRESSORS_SUPPORTED = ["snappy", "zlib"]
+_COMPRESSORS = dict()
+for module in COMPRESSORS_SUPPORTED:
+    try:
+        _COMPRESSORS[module] = __import__(module)
+    except ImportError:
+        pass
+    except SystemError:
+        pass
+COMPRESSORS = _COMPRESSORS.keys()
+_COMPRESSORS_RE = re.compile("^(%s)" % "|".join(_COMPRESSORS.keys()))
+
+_py2 = sys.hexversion < 0x03000000
+_py3 = not _py2
 
 DEFAULT_BODY = ''.encode()
 
 def is_ascii(string):
     """ Returns True is the string is ascii. """
     try:
-        if is_bytes(string):
+        if _py3 and is_bytes(string):
             string = string.decode()
         string.encode("ascii")
+        return True
     except UnicodeDecodeError:
         return False
     except UnicodeEncodeError:
         return False
-    return True
 
 def is_bytes(string):
     """ Check if given string is a byte string. """
@@ -253,30 +279,32 @@ def is_bytes(string):
 
 def dejsonify(obj):
     """ Returns a message from json structure. """
-    if not isinstance(obj, dict):
-        raise ValueError("expecting a json object: %s" % obj)
     is_text = False
-    if obj.get('text'):
-        is_text = True
+    try:
+        if obj.get('text'):
+            is_text = True
+    except AttributeError:
+        raise ValueError("dict expected: %s" % obj)
     header = obj.get('header', dict())
     body = obj.get('body', DEFAULT_BODY)
-    encoding = dict()
-    if obj.get('encoding'):
-        encoding = obj['encoding'].split('+')
+    encoding = list()
+    o_encoding = obj.get('encoding')
+    if o_encoding:
+        encoding = o_encoding.split('+')
         if not is_bytes(body):
             body = body.encode()
     if 'base64' in encoding:
         body = base64.b64decode(body)
-    if 'zlib' in encoding:
-        body = zlib.decompress(body)
+    for method in _COMPRESSORS:
+        if method in encoding:
+            body = _COMPRESSORS[method].decompress(body)
     if 'utf8' in encoding:
         body = body.decode('utf-8')
     if is_bytes(body):
         if is_text:
             body = body.decode()
-    else:
-        if not is_text:
-            body = body.encode()
+    elif not is_text:
+        body = body.encode()
     return Message(body, header)
     
 def destringify(string):
@@ -293,15 +321,37 @@ def deserialize(binary):
     decoded = binary
     try:
         if is_bytes(decoded):
-            decoded = decoded.decode('utf-8')
+            decoded = decoded.decode("utf-8")
     except UnicodeDecodeError:
         error = sys.exc_info()[1]
         raise ValueError("not a valid binary string %s: %s" 
                          % (binary, error))
     return destringify(decoded)
 
+def _base64_it(obj):
+    """ Try to base64 if required. """
+    obj['body'] = base64.b64encode(obj['body'])
+    obj['encoding']['base64'] = True
+    
+def _utf8_it(obj):
+    """ UTF-8 if necesary. """
+    if _py2 and is_ascii(obj['body']):
+            return
+    obj["body"] = obj["body"].encode("utf-8")
+    obj["encoding"]["utf8"] = True
+    
+def _compress_it(compression, obj):
+    """ Try to compress the body and check if worth it. """
+    body_len = len(obj["body"])
+    if body_len < 255:
+        return
+    tmp = _COMPRESSORS[compression].compress(obj["body"])
+    if (float(len(tmp)) / body_len) < 0.9:
+        obj["body"] = tmp
+        obj["encoding"][compression] = True
+        
 class Message(object):
-    """A Message abstraction class. """
+    """ A Message abstraction class. """
     
     def __init__(self, body=DEFAULT_BODY, header=dict()):
         """ Initialize the object """
@@ -351,58 +401,48 @@ class Message(object):
     def jsonify(self, option=dict()):
         """ Transforms the message to JSON. """
         compression = option.get('compression')
-        if compression is not None and compression != 'zlib':
+        if compression is not None and not _COMPRESSORS_RE.match(compression):
             raise ValueError("unsupported compression type: %s" 
                              % compression)
         obj = dict()
         if self.header:
-            obj['header'] = self.header
+            obj["header"] = self.header
         if not self.body:
             return obj
-        obj['body'] = self.body
+        obj["body"] = self.body
         if self.text:
-            obj['text'] = True
+            obj["text"] = True
             if compression:
-                obj['body'] = obj['body'].encode("utf-8")
-                obj['encoding'] = {'utf8' : True}
-                if compression == "zlib":
-                    tmp = zlib.compress(obj['body'])
-                    if (float(len(tmp)) / len(obj['body'])) < 0.9:
-                        obj['body'] = tmp
-                        obj['encoding']["zlib"] = True
-                if obj.get('encoding') and obj['encoding'].get('zlib'):
-                    obj['body'] = base64.b64encode(obj['body'])
-                    obj['encoding']['base64'] = True
+                obj["encoding"] = dict()
+                _utf8_it(obj)
+                tmp_encoding = len(obj.get("encoding", dict()))
+                _compress_it(compression, obj)
+                if tmp_encoding != len(obj.get("encoding", dict())):
+                    _base64_it(obj)
                 else:
-                    obj['body'] = self.body
-                    del(obj['encoding'])
-        elif self.body:
-            if compression == "zlib":
-                obj['encoding'] = dict()
-                tmp = zlib.compress(obj['body'])
-                if (float(len(tmp)) / len(obj['body'])) < 0.9:
-                    obj['body'] = tmp
-                    obj['encoding']["zlib"] = True
-            if not is_ascii(obj['body']):
-                if obj.get('encoding') is None:
-                    obj['encoding'] = dict()
-                obj['body'] = base64.b64encode(obj['body'])
-                obj['encoding']['base64'] = True
-        if obj.get('encoding'):
-            obj['encoding'] = '+'.join(obj['encoding'].keys())
+                    obj["body"] = self.body
+                    del(obj["encoding"])
+        else:
+            obj["encoding"] = dict()
+            if compression:
+                _compress_it(compression, obj)
+            _base64_it(obj)
+        if obj.get("encoding"):
+            obj["encoding"] = "+".join(obj["encoding"].keys())
         return obj
         
     def stringify(self, option=dict()):
         """ Transforms the message to string. """
         jsonified = self.jsonify(option)
-        if is_bytes(jsonified.get('body')):
-            jsonified['body'] = jsonified.get('body', '').decode('utf-8')
+        body = jsonified.get("body", "")
+        if is_bytes(body):
+            jsonified["body"] = body.decode("utf-8")
         return json.dumps(jsonified)
     
     def serialize(self, option=dict()):
         """ Serialize message. """
         stringified = self.stringify(option)
-        return stringified.encode('utf-8')
+        return stringified.encode("utf-8")
     
     def __repr__(self):
         """ Return a string representation of the object """
@@ -423,13 +463,13 @@ class Message(object):
         """ Return the checksum of the message. """
         header_c = ''.join(["%s:%s\n" % (key, self.header[key]) 
                               for key in sorted(self.header.keys())])
-        header_c = md5_hash(header_c.encode('utf-8')).hexdigest()
+        header_c = md5_hash(header_c.encode("utf-8")).hexdigest()
         if self.is_text():
-            body_c = md5_hash(self.body.encode('utf-8')).hexdigest()
+            body_c = md5_hash(self.body.encode("utf-8")).hexdigest()
         else:
             body_c = md5_hash(self.body).hexdigest()
         composed = "%d%s%s" % (self.is_text(), header_c, body_c)
-        return md5_hash(composed.encode('utf-8')).hexdigest()
+        return md5_hash(composed.encode("utf-8")).hexdigest()
     
     def __eq__(self, other):
         """ Check if the message is equal to the given one. """

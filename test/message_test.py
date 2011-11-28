@@ -15,7 +15,7 @@
 __version__ = "$Revision: 1 $"
 # $Source$
 
-from messaging.message import Message
+from messaging.message import Message, COMPRESSORS
 import messaging.message as message
 from messaging.generator import Generator
 import os
@@ -72,11 +72,15 @@ class MessageTest(unittest.TestCase):
         print("checking message compression")
         length = 10000
         body = ''.join(['a' for each in range(length)])
-        msg = Message(body=body , header={'l':'ff'})
-        jsonified = msg.jsonify({'compression' : 'zlib'})
-        self.assert_(len(jsonified['body']) < length * 0.9,
-                     "message should have been compressed")
-        print("...message compression ok")
+        ok = list()
+        for module in COMPRESSORS:
+            msg = Message(body=body , header={'l':'ff'})
+            jsonified = msg.jsonify({'compression' : module})
+            self.assert_(len(jsonified['body']) < length * 0.9,
+                         "message should have been compressed with %s" %
+                         module)
+            ok.append(module)
+        print("...message compression ok for %s" % ",".join(ok))
     
     def test_message_fullchain(self):
         """
