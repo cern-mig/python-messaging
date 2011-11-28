@@ -36,7 +36,7 @@ def stomppy_test():
     Example that shows how to handle messages
     """
     print("stomppy example")
-    conn = stomp.Connection([("dev.msg.cern.ch", 6163)])
+    conn = stomp.Connection([("localhost", 61613)])
     listener = MyListener()
     conn.set_listener("", listener)
     conn.start()
@@ -56,8 +56,5 @@ def stomppy_test():
     conn.disconnect()
     print("...stomppy example ok")
     
-def main():
-    stomppy_test()
-
 if __name__ == "__main__":
-    main()
+    stomppy_test()
