@@ -28,6 +28,7 @@ DESCRIPTION
 This module provides a versatile message generator that can be useful
 for stress testing or benchmarking messaging brokers or libraries.
 
+Copyright (C) 2011 CERN
 """
 __version__ = "$Revision: 1 $"
 # $Source$

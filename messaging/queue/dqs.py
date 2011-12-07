@@ -32,6 +32,8 @@ directory-based queue.
 
 It simply stores the serialized message (with optional compression) as
 a QueueSimple element.
+
+Copyright (C) 2011 CERN
 """
 __version__ = "$Revision: 1 $"
 # $Source$

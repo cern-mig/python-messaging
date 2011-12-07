@@ -40,6 +40,7 @@ It uses the following Queue schema to store a message:
 The message header is therefore stored as a table and the message body
 is stored either as a text or binary string.
 
+Copyright (C) 2011 CERN
 """
 __version__ = "$Revision: 1 $"
 # $Source$

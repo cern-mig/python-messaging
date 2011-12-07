@@ -18,6 +18,8 @@ DESCRIPTION
 This module provides an abstraction of a message queue. Its only
 purpose is to offer a unified method to create a new queue. The
 functionality is implemented in child modules such as DQ.
+
+Copyright (C) 2011 CERN
 """
 __version__ = "$Revision: 1 $"
 # $Source$
