@@ -253,6 +253,9 @@ for module in COMPRESSORS_SUPPORTED:
 COMPRESSORS = _COMPRESSORS.keys()
 _COMPRESSORS_RE = re.compile("^(%s)" % "|".join(_COMPRESSORS.keys()))
 
+_EX_ASCII_RE = re.compile("[\x80-\xff]")
+_EX_BASE64_RE = re.compile("[\x00-\x1f\x7f-\xff]")
+
 _py2 = sys.hexversion < 0x03000000
 _py3 = not _py2
 
@@ -272,10 +275,10 @@ def is_ascii(string):
 
 def is_bytes(string):
     """ Check if given string is a byte string. """
-    try:
+    if _py2:
         return not isinstance(string, unicode)
-    except NameError:
-        return isinstance(string, bytes) # python 3
+    else: # python 3
+        return isinstance(string, bytes)
 
 def dejsonify(obj):
     """ Returns a message from json structure. """
@@ -330,15 +333,21 @@ def deserialize(binary):
 
 def _base64_it(obj):
     """ Try to base64 if required. """
+    if _py2 and not _EX_BASE64_RE.search(obj['body']):
+        return
+    try:
+        if _py3 and not _EX_BASE64_RE.search(str(obj['body'], "utf-8")):
+            return
+    except UnicodeDecodeError:
+        pass
     obj['body'] = base64.b64encode(obj['body'])
     obj['encoding']['base64'] = True
     
 def _utf8_it(obj):
     """ UTF-8 if necesary. """
-    if _py2 and is_ascii(obj['body']):
-            return
-    obj["body"] = obj["body"].encode("utf-8")
-    obj["encoding"]["utf8"] = True
+    if _py3 or _EX_ASCII_RE.match(obj['body']):
+        obj["body"] = obj["body"].encode("utf-8")
+        obj["encoding"]["utf8"] = True
     
 def _compress_it(compression, obj):
     """ Try to compress the body and check if worth it. """
@@ -422,7 +431,7 @@ class Message(object):
                 else:
                     obj["body"] = self.body
                     del(obj["encoding"])
-        else:
+        else: # binary body
             obj["encoding"] = dict()
             if compression:
                 _compress_it(compression, obj)

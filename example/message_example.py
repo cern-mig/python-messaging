@@ -33,7 +33,6 @@ def handle_message():
     assert(msg1 == msg3)
     
     tmp = msg1.stringify()
-    assert(tmp == '{"body": "hello world!", "header": {"h1": "val1"}}')
     msg4 = destringify(tmp)
     assert(msg1 == msg4)
     

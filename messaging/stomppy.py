@@ -25,7 +25,7 @@ class MessageListener(object):
 
     def on_connected(self, headers, body):
         """ Translate standard call to custom one. """
-        self.connected(Message(header=headers, body=body))
+        self.connected(Message(header=headers, body=body.decode()))
         
     def connected(self, message):
         """
@@ -54,7 +54,7 @@ class MessageListener(object):
 
     def on_message(self, headers, body):
         """ Translate standard call to custom one. """
-        self.message(Message(header=headers, body=body))
+        self.message(Message(header=headers, body=body.decode()))
         
     def message(self, message):
         """
@@ -67,7 +67,7 @@ class MessageListener(object):
 
     def on_receipt(self, headers, body):
         """ Translate standard call to custom one. """
-        self.receipt(Message(header=headers, body=body))
+        self.receipt(Message(header=headers, body=body.decode()))
         
     def receipt(self, message):
         """
@@ -81,7 +81,7 @@ class MessageListener(object):
     
     def on_error(self, headers, body):
         """ Translate standard call to custom one. """
-        self.error(Message(header=headers, body=body))
+        self.error(Message(header=headers, body=body.decode()))
 
     def error(self, message):
         """
@@ -94,7 +94,7 @@ class MessageListener(object):
     
     def on_send(self, headers, body):
         """ Translate standard call to custom one. """
-        self.send(Message(header=headers, body=body))
+        self.send(Message(header=headers, body=body.decode()))
     
     def send(self, message):
         """

@@ -42,7 +42,7 @@ def stomppy_test():
     conn.start()
     conn.connect()
     
-    msg = Message(body="stomppy_test",
+    msg = Message(body="stomppy_test".decode(),
                   header={'destination' : '/topic/test.stomppy',
                           'x-uuid' : "%s" % time.time()})
     listener.uuid = msg.header['x-uuid']
