@@ -42,8 +42,6 @@ is stored either as a text or binary string.
 
 Copyright (C) 2011 CERN
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
 from messaging.message import Message, deserialize
 from dirq.queue import Queue

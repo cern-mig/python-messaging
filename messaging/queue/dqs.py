@@ -35,8 +35,6 @@ a QueueSimple element.
 
 Copyright (C) 2011 CERN
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
 from messaging.message import Message, deserialize
 from dirq.QueueSimple import QueueSimple

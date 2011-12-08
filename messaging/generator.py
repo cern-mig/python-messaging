@@ -30,8 +30,6 @@ for stress testing or benchmarking messaging brokers or libraries.
 
 Copyright (C) 2011 CERN
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
 import base64
 import binascii

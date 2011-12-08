@@ -21,8 +21,6 @@ functionality is implemented in child modules such as DQ.
 
 Copyright (C) 2011 CERN
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
 import sys
 

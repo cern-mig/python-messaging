@@ -223,8 +223,6 @@ To sum up:
 
 Copyright (C) 2011 CERN
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
 import base64
 import copy
