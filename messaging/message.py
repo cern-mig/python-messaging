@@ -38,7 +38,7 @@ Example::
 Description
 ===========
 
-This module provides an abstraction of a "message", as used in
+This module provides an abstraction of a *message*, as used in
 messaging, see for instance:
 http://en.wikipedia.org/wiki/Enterprise_messaging_system.
 
@@ -74,17 +74,17 @@ following fields:
 
 header
     the message header as a JSON object (with all values being JSON
-    strings)
+    strings).
 
 body
-    the message body as a JSON string
+    the message body as a JSON string.
 
 text
     a JSON boolean specifying whether the body is text string (as opposed
-    to binary string) or not
+    to binary string) or not.
 
 encoding
-    a JSON string describing how the body has been encoded (see below)
+    a JSON string describing how the body has been encoded (see below).
 
 All fields are optional and default to empty/false if not present.
 
@@ -103,19 +103,19 @@ to the message body. It is a *+* separated list of transformations
 that can be:
 
 base64
-    Base64 encoding (for binary body or compressed body)
+    :py:mod:`base64` encoding (for binary body or compressed body).
 
 utf8
-    UTF-8 encoding (only needed for a compressed text body)
+    :py:mod:`utf8` encoding (only needed for a compressed text body).
 
 zlib
-    Zlib compression
+    :py:mod:`zlib` compression.
     
 snappy
-    Snappy compression (http://code.google.com/p/snappy/)
+    Snappy compression (http://code.google.com/p/snappy/).
 
 Here is for instance the JSON object representing an empty message
-(i.e. the result of Message())::
+(i.e. the result of :py:meth:`Message`)::
 
   {}
 
@@ -127,11 +127,13 @@ Here is a more complex example, with a binary body::
     "encoding":"base64"
   }
 
-You can use the jsonify() method to convert a Message object into a
-dict representing the equivalent JSON object.
+You can use the :py:meth:`Message.jsonify` method to convert a
+:py:class:`Message` object into a dict representing the equivalent
+JSON object.
 
-Conversely, you can create a new Message object from a compatible
-JSON object (again, a dict) with the dejsonify() method.
+Conversely, you can create a new :py:class:`Message` object from a
+compatible JSON object (again, a :py:class:`dict`) with the
+:py:meth:`dejsonify` method.
 
 Using this JSON mapping of messages is very convenient because you can
 easily put messages in larger JSON data structures. You can for
@@ -176,17 +178,17 @@ Stringification and Serialization
 =================================
 
 In addition to the JSON mapping described above, we also define how to
-stringify and serialize a message.
+*stringify* and *serialize* a message.
 
 A *stringified message* is the string representing its equivalent
 JSON object. A stringified message is a text string and can for
-instance be used in another message. See the stringify() and
-destringify() methods.
+instance be used in another message. See the :py:meth:`Message.stringify`
+and :py:func:`destringify` methods.
 
 A *serialized message* is the UTF-8 encoding of its stringified
 representation. A serialized message is a binary string and can for
-instance be stored in a file. See the :py:meth:`serialize` and deserialize()
-methods.
+instance be stored in a file. See the :py:meth:`Message.serialize`
+and :py:func:`deserialize` methods.
 
 For instance, here are the steps needed in order to store a message
 into a file:
@@ -198,8 +200,9 @@ into a file:
    encoding
 
 
-*1* is called *jsonify*, *1 + 2* is called *stringify* and *1 + 2 +
-3* is called *serialize*.
+*1* is called :py:meth:`Message.jsonify`, *1 + 2* is called
+:py:meth:`Message.stringify` and *1 + 2 + 3* is called
+:py:meth:`Message.serialize`.
 
 To sum up::
 

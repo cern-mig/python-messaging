@@ -1,9 +1,13 @@
 """
-DQ - abstraction of a Queue message queue
+Directory Queue
+===============
 
-========
-SYNOPSIS
-========
+:py:class:`DQ` - abstraction of a Queue message queue
+
+Synopsis
+--------
+
+Example::
 
   from messaging.message import Message
   from messaging.queue.dq import DQ
@@ -22,14 +26,13 @@ SYNOPSIS
       # one could use mq.unlock(name) to only browse the queue...
       mq.remove(name)
 
-===========
-DESCRIPTION
-===========
+Description
+-----------
 
 This module provides an abstraction of a message queue. It derives
 from the dirq.Queue module that provides a generic directory-based queue.
 
-It uses the following Queue schema to store a message:
+It uses the following Queue schema to store a message::
 
   schema = {
       "header" = "table",

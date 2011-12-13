@@ -1,5 +1,5 @@
 """
-Error
+Errors used in the module.
 
 Copyright (C) 2011 CERN
 """

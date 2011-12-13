@@ -1,12 +1,8 @@
 """
-=======================================
-Generator - versatile message generator
-=======================================
+Synopsis
+========
 
-SYNOPSIS
---------
-
-Example:
+Example::
 
   import messaging.generator as generator;
 
@@ -21,8 +17,8 @@ Example:
       msg = mg.message()
       ... do something with it ...
 
-===========
-DESCRIPTION
+
+Description
 ===========
 
 This module provides a versatile message generator that can be useful
@@ -119,19 +115,19 @@ class Generator(object):
         """
         Returns a newly generated Message object
         
-        OPTIONS
-        =======
+        Options
+        
         When creating a message generator, the following options can be given:
 
         body-content
 
-            - string: specifying the body content type; depending on this
-            value, the body will be made of:
-            - base64: only Base64 characters
-            - binary: anything
-            - index: the message index number, starting at 1, optionally
-            adjusted to match the C<body-size> (this is the default)
-            - text: only printable 7-bit ASCII characters
+            * string: specifying the body content type; depending on this
+              value, the body will be made of:
+            * base64: only Base64 characters
+            * binary: anything
+            * index: the message index number, starting at 1, optionally
+              adjusted to match the C<body-size> (this is the default)
+            * text: only printable 7-bit ASCII characters
 
         body-size
             integer specifying the body size
@@ -140,7 +136,6 @@ class Generator(object):
             integer specifying the number of header fields
 
         header-value-size
-
             integer specifying the size of each header field value
             (default is -32)
 
@@ -156,16 +151,16 @@ class Generator(object):
         Note: all integer options can be either positive (meaning exactly this
         value) or negative (meaning randomly distributed around the value).
 
-        For instance:
+        For instance::
 
-        mg = Generator(
-            header_count = 10,
-            header_value_size = -20,
-        )
+          mg = Generator(
+              header_count = 10,
+              header_value_size = -20,
+          )
 
-will generate messages with exactly 10 random header fields, each
-field value having a random size between 0 and 40 and normally
-distributed around 20.
+        It will generate messages with exactly 10 random header fields, each
+        field value having a random size between 0 and 40 and normally
+        distributed around 20.
         """
         size = self.__option.get('body_size')
         size = maybe_randomize(size)

@@ -1,9 +1,10 @@
 """
-Messaging::Message::Queue - abstraction of a message queue
+:py:class:`Queue` - abstraction of a message queue
 
+Synopsis
 ========
-SYNOPSIS
-========
+
+Example::
 
   import messaging.queue as queue
 
@@ -11,8 +12,7 @@ SYNOPSIS
   # is identical too
   mq = queue.foo.Foo(... options ...);
 
-===========
-DESCRIPTION
+Description
 ===========
 
 This module provides an abstraction of a message queue. Its only

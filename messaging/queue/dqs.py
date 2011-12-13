@@ -1,9 +1,13 @@
 """
-DQS - abstraction of a QueueSimple message queue
+Directory Queue Simple
+======================
 
-========
-SYNOPSIS
-========
+:py:class:`DQS` - abstraction of a QueueSimple message queue
+
+Synopsis
+--------
+
+Example::
 
   from messaging.message import Message
   from messaging.queue.dqs import DQS
@@ -22,9 +26,8 @@ SYNOPSIS
       # one could use mq.unlock(name) to only browse the queue...
       mq.remove(name)
 
-===========
-DESCRIPTION
-===========
+Description
+-----------
 
 This module provides an abstraction of a message queue. It derives
 from the QueueSimple module that provides a generic
