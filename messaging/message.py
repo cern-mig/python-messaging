@@ -1,12 +1,8 @@
 """
-============================================
-Message - abstraction of a message
-============================================
+Synopsis
+========
 
-SYNOPSIS
---------
-
-Example:
+Example::
 
   importing messaging.message as message
 
@@ -38,8 +34,8 @@ Example:
   # serialize it and compress the body with snappy
   msg.serialize({"compression" : "snappy"})
 
-===========
-DESCRIPTION
+
+Description
 ===========
 
 This module provides an abstraction of a "message", as used in
@@ -65,8 +61,8 @@ To make things clear:
 
 Both the header and the body can be empty.
 
-============
-JSON MAPPING
+
+Json Mapping
 ============
 
 In order to ease message manipulation (e.g. exchanging between
@@ -119,11 +115,11 @@ snappy
     Snappy compression (http://code.google.com/p/snappy/)
 
 Here is for instance the JSON object representing an empty message
-(i.e. the result of Message()):
+(i.e. the result of Message())::
 
   {}
 
-Here is a more complex example, with a binary body:
+Here is a more complex example, with a binary body::
 
   {
     "header":{"subject":"demo","destination":"/topic/test"},
@@ -143,7 +139,7 @@ instance store several messages together using a JSON array of these
 messages.
 
 Here is for instance how you could construct a message containing in
-its body another message along with error information:
+its body another message along with error information::
 
   try:
       import simplejson as json
@@ -162,7 +158,7 @@ its body another message along with error information:
   msg2 = message.Message(body = json.dumps(body))
   msg2.header["content-type"] = "message/error"
 
-A receiver of such a message can easily decode it:
+A receiver of such a message can easily decode it::
 
   try:
       import simplejson as json
@@ -175,8 +171,8 @@ A receiver of such a message can easily decode it:
   # extract the inner message
   msg1 = message.dejsonify(body['message'])
 
-=================================
-STRINGIFICATION AND SERIALIZATION
+
+Stringification and Serialization
 =================================
 
 In addition to the JSON mapping described above, we also define how to
@@ -189,23 +185,23 @@ destringify() methods.
 
 A *serialized message* is the UTF-8 encoding of its stringified
 representation. A serialized message is a binary string and can for
-instance be stored in a file. See the serialize() and deserialize()
+instance be stored in a file. See the :py:meth:`serialize` and deserialize()
 methods.
 
 For instance, here are the steps needed in order to store a message
 into a file:
 
-# transform the programming language specific abstraction of the message
-into a JSON object
-# transform the JSON object into its (text) string representing
-# transform the JSON text string into a binary string using UTF-8
-encoding
+#. transform the programming language specific abstraction of the message
+   into a JSON object
+#. transform the JSON object into its (text) string representing
+#. transform the JSON text string into a binary string using UTF-8
+   encoding
 
 
-"1" is called *jsonify*, "1 + 2" is called *stringify* and "1 + 2 +
-3" is called *serialize*.
+*1* is called *jsonify*, *1 + 2* is called *stringify* and *1 + 2 +
+3* is called *serialize*.
 
-To sum up:
+To sum up::
 
             Message object
                  |  ^
