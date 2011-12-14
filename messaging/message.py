@@ -1,6 +1,9 @@
 """
+
+:py:class:`Message` - abstraction of a *message*
+
 Synopsis
-========
+--------
 
 Example::
 
