@@ -14,8 +14,8 @@ Contents:
    message
    generator
    queue
-   error
    stomppy
+   error
 
 .. automodule:: messaging
     :members:

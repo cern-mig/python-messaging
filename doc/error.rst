@@ -1,6 +1,6 @@
 
-Message Errors
-==============
+Errors
+======
 
 .. automodule:: messaging.error
     :members:
