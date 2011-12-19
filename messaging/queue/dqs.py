@@ -2,7 +2,8 @@
 Directory Queue Simple
 ======================
 
-:py:class:`DQS` - abstraction of a QueueSimple message queue
+:py:class:`DQS` - abstraction of a :py:class:`dirq.QueueSimple.QueueSimple`
+message queue.
 
 Synopsis
 --------
@@ -30,11 +31,11 @@ Description
 -----------
 
 This module provides an abstraction of a message queue. It derives
-from the QueueSimple module that provides a generic
-directory-based queue.
+from the :py:class:`dirq.QueueSimple.QueueSimple` module that provides
+a generic directory-based queue.
 
 It simply stores the serialized message (with optional compression) as
-a QueueSimple element.
+a :py:class:`dirq.QueueSimple.QueueSimple` element.
 
 Copyright (C) 2011 CERN
 """
@@ -44,22 +45,24 @@ from dirq.QueueSimple import QueueSimple
 
 class DQS(QueueSimple):
     """
-    Abstraction of a QueueSimple message queue.
+    Abstraction of a :py:class:`dirq.QueueSimple.QueueSimple` message queue.
     """
     
     def __init__(self, **data):
         """
-        Return a new DQS object.
+        Return a new :py:class:`DQS` object.
         """
         self.__compression = data.pop('compression', None)
         super(DQS, self).__init__(**data)
     
     def add_message(self, msg):
         """
-        Add the given message (a Message object) to the queue and
-        return the corresponding element name.
+        Add the given message (a :py:class:`messaging.message.Message` object)
+        to the queue and return the corresponding element name.
+        
         Raise:
-        - TypeError if the parameter is not a Message.
+            TypeError if the parameter is not a
+            :py:class:`messaging.message.Message`.
         """
         if not isinstance(msg, Message):
             raise TypeError("message type not expected: %s" % msg)
@@ -72,7 +75,7 @@ class DQS(QueueSimple):
     def get_message(self, element):
         """
         Dequeue the message from the given element and
-        return a Message object.
+        return a :py:class:`messaging.message.Message` object.
         """
         msg = self.get(element)
         return deserialize(msg)

@@ -2,7 +2,8 @@
 Directory Queue
 ===============
 
-:py:class:`DQ` - abstraction of a Queue message queue
+:py:class:`DQ` - abstraction of a :py:class:`dirq.queue.Queue`
+message queue.
 
 Synopsis
 --------
@@ -30,9 +31,11 @@ Description
 -----------
 
 This module provides an abstraction of a message queue. It derives
-from the dirq.Queue module that provides a generic directory-based queue.
+from the :py:class:`dirq.queue.Queue` module that provides a generic
+directory-based queue.
 
-It uses the following Queue schema to store a message::
+It uses the following :py:class:`dirq.queue.Queue` schema to store a
+message::
 
   schema = {
       "header" = "table",
@@ -56,7 +59,7 @@ class DQ(Queue):
     
     def __init__(self, **data):
         """
-        Return a new DQ object.
+        Return a new :py:class:`DQ` object.
         """
         data["schema"] = { "header" : "table",
                           "body" : "binary?",
@@ -65,10 +68,12 @@ class DQ(Queue):
     
     def add_message(self, msg):
         """
-        Add the given message (a Message object) to the queue and
-        return the corresponding element name.
+        Add the given message (a :py:class:`messaging.message.Message` object)
+        to the queue and return the corresponding element name.
+        
         Raise:
-        - TypeError if the parameter is not a Message.
+            :py:class:`TypeError` if the parameter is not a
+            :py:class:`messaging.message.Message`.
         """
         if not isinstance(msg, Message):
             raise TypeError("Message expected: %s" % msg)
@@ -82,7 +87,7 @@ class DQ(Queue):
     def get_message(self, element):
         """
         Get the message from the given element (which must be locked) and
-        return a Message object.
+        return a :py:class:`messaging.message.Message` object.
         """
         data = self.get(element)
         if "text" in data:
@@ -94,9 +99,10 @@ class DQ(Queue):
     def dequeue_message(self, element):
         """
         Dequeue the message from the given element and
-        return a Message object.
+        return a :py:class:`messaging.message.Message` object.
+        
         Raise:
-        TypeError if the parameter is not a string.
+            :py:class:`TypeError` if the parameter is not a :py:mod:`string`.
         """
         if not isinstance(element, str):
             raise TypeError("string expected: %s" % element)
