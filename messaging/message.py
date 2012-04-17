@@ -439,6 +439,8 @@ class Message(object):
             _base64_it(obj)
         if obj.get("encoding"):
             obj["encoding"] = "+".join(obj["encoding"].keys())
+        else:
+            obj["encoding"] = ""
         return obj
         
     def stringify(self, option=dict()):
