@@ -12,7 +12,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  
- Copyright (C) 2011 CERN
+ Copyright (C) 2012 CERN
 """
 
 from messaging.message import Message, deserialize, destringify, dejsonify

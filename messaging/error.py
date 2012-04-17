@@ -1,7 +1,7 @@
 """
 Errors used in the module.
 
-Copyright (C) 2011 CERN
+Copyright (C) 2012 CERN
 """
 
 class MessageError(Exception):

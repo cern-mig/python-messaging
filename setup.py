@@ -1,5 +1,7 @@
+import messaging
+
 NAME = 'messaging'
-VERSION = '0.5'
+VERSION = messaging.VERSION
 DESCRIPTION = "Messaging related modules"
 LONG_DESCRIPTION = """
 Messaging related modules

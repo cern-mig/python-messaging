@@ -37,7 +37,7 @@ a generic directory-based queue.
 It simply stores the serialized message (with optional compression) as
 a :py:class:`dirq.QueueSimple.QueueSimple` element.
 
-Copyright (C) 2011 CERN
+Copyright (C) 2012 CERN
 """
 
 from messaging.message import Message, deserialize
