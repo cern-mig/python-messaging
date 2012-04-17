@@ -8,7 +8,7 @@ Example::
 
   import messaging.queue as queue
 
-  mq = queue.new(type="Foo", ... options ...);
+  mq = queue.new({"type":"Foo", ... options ...});
   # is identical too
   mq = queue.foo.Foo(... options ...);
 
@@ -31,7 +31,7 @@ def new(option):
     queue (which is the name of the child class), see above.
     """
     options = option.copy()
-    qtype = options.pop("type", "DQ")
+    qtype = options.pop("type", "DQS")
     try:
         __import__("messaging.queue.%s" % (qtype.lower()))
     except SyntaxError:
