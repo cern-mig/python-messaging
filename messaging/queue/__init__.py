@@ -37,7 +37,9 @@ def new(option):
     except SyntaxError:
         raise SyntaxError("error importing dirq type: %s" % qtype)
     except ImportError:
-        raise ImportError("you must install dirq before using this module")
+        raise ImportError(
+            "you must install %s dependencies before using this module" %
+            (qtype, ))
     try:
         module = sys.modules["messaging.queue.%s" % (qtype.lower())]
         return getattr(module, qtype)(**options)
