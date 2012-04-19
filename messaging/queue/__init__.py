@@ -18,7 +18,7 @@ Description
 This module provides an abstraction of a message queue. Its only
 purpose is to offer a unified method to create a new queue. The
 functionality is implemented in child modules such as
-:py:mod:`messaging.queue.dq.DQ`.
+:py:mod:`messaging.queue.dqs.DQS`.
 
 Copyright (C) 2012 CERN
 """

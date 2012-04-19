@@ -1,8 +1,8 @@
 """
-Directory Queue
-===============
+Directory Queue Normal
+======================
 
-:py:class:`DQ` - abstraction of a :py:class:`dirq.queue.Queue`
+:py:class:`DQN` - abstraction of a :py:class:`dirq.queue.Queue`
 message queue.
 
 Synopsis
@@ -11,10 +11,10 @@ Synopsis
 Example::
 
   from messaging.message import Message
-  from messaging.queue.dq import DQ
+  from messaging.queue.dqn import DQN
 
   # create a message queue
-  mq = DQ(path = "/some/where")
+  mq = DQN(path = "/some/where")
 
   # add a message to the queue
   msg = Message(body="hello world")
@@ -52,19 +52,19 @@ Copyright (C) 2012 CERN
 from messaging.message import Message, deserialize
 from dirq.queue import Queue
 
-class DQ(Queue):
+class DQN(Queue):
     """
     Abstraction of a Queue message queue.
     """
     
     def __init__(self, **data):
         """
-        Return a new :py:class:`DQ` object.
+        Return a new :py:class:`DQN` object.
         """
         data["schema"] = { "header" : "table",
                           "body" : "binary?",
                           "text" : "string?", }
-        super(DQ, self).__init__(**data)
+        super(DQN, self).__init__(**data)
     
     def add_message(self, msg):
         """

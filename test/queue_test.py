@@ -71,7 +71,7 @@ class QueueTest(unittest.TestCase):
 
     def test_queue_normal(self):
         """ Test normal dirq. """
-        self.__test_dq("DQ")
+        self.__test_dq("DQN")
             
     def test_queue_simple(self):
         """ Test simple dirq. """
