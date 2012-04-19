@@ -6,6 +6,6 @@ python:
   - "3.2"
 # command to install dependencies
 install:
-  - pip install lz4 --use-mirrors
+  - pip install simplejson lz4 --use-mirrors
 # command to run tests
 script: python setup.py test
