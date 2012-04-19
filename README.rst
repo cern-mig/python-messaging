@@ -1,8 +1,15 @@
-Messaging
+================
+python-messaging
+================
+
+.. image:: https://secure.travis-ci.org/mpaladin/python-messaging.png?branch=master
+
+Overview
+========
 
 Messaging is a set of Python modules useful to deal with
 "messages", as used in messaging, see for instance:
-http://en.wikipedia.org/wiki/Enterprise_messaging_system.
+`Enterprise Messaging System <http://en.wikipedia.org/wiki/Enterprise_messaging_system>`_.
 
 The modules include a transport independent message abstraction, a
 versatile message generator and several message queues/spools to
@@ -10,25 +17,32 @@ locally store messages.
 
 An Perl implementation of the same abstractions and queue algorithms
 is available in CPAN:
-http://search.cpan.org/~lcons/Messaging-Message/
+`perl-Messaging-Message <http://search.cpan.org/~lcons/Messaging-Message/`_.
 
-INSTALLATION
+Install
+=======
 
-To install this module, run the following commands:
+To install this module, run the following commands::
 
     python setup.py install
 
-To test the module, run the following command:
+To test the module, run the following command::
 
     python setup.py test
 
-SUPPORT AND DOCUMENTATION
+
+Support and documentation
+=========================
 
 After installing, you can find documentation for this module with the
-standard python help function command.
+standard python help function command or at:
+`python-messaging documentation <http://mpaladin.web.cern.ch/mpaladin/python/messaging/>`_
 
-LICENSE AND COPYRIGHT
-Copyright (C) 2011 CERN
+
+License and copyright
+=====================
+
+Copyright (C) 2012 CERN
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 

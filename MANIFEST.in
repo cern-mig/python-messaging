@@ -1,4 +1,4 @@
-include LICENSE README CHANGES
+include LICENSE README.rst CHANGES
 include example/*
 include test/*
 include test/compliance/*
