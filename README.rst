@@ -41,7 +41,7 @@ standard python help function command or at:
 
     http://mpaladin.web.cern.ch/mpaladin/python/messaging/
 
-License and copyright
+License and Copyright
 =====================
 
 Copyright (C) 2012 CERN
