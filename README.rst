@@ -9,7 +9,8 @@ Overview
 
 Messaging is a set of Python modules useful to deal with
 "messages", as used in messaging, see for instance:
-`Enterprise Messaging System <http://en.wikipedia.org/wiki/Enterprise_messaging_system>`_.
+
+    http://en.wikipedia.org/wiki/Enterprise_messaging_system
 
 The modules include a transport independent message abstraction, a
 versatile message generator and several message queues/spools to
@@ -17,7 +18,8 @@ locally store messages.
 
 An Perl implementation of the same abstractions and queue algorithms
 is available in CPAN:
-`perl-Messaging-Message <http://search.cpan.org/~lcons/Messaging-Message/`_.
+
+    http://search.cpan.org/~lcons/Messaging-Message/
 
 Install
 =======
@@ -36,8 +38,8 @@ Support and documentation
 
 After installing, you can find documentation for this module with the
 standard python help function command or at:
-`python-messaging documentation <http://mpaladin.web.cern.ch/mpaladin/python/messaging/>`_
 
+    http://mpaladin.web.cern.ch/mpaladin/python/messaging/
 
 License and copyright
 =====================
