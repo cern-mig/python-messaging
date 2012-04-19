@@ -28,7 +28,9 @@ try:
 except NameError:
     pass
 
-MESSAGE_CONVERT_OPTIONS = [dict(), {'compression' : 'zlib'}]
+MESSAGE_CONVERT_OPTIONS = [dict(),]
+for compressor in COMPRESSORS:
+    MESSAGE_CONVERT_OPTIONS.append({'compression' : compressor})
 
 _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)

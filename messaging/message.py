@@ -34,6 +34,8 @@ Example::
   msg.serialize()
   # serialize it and compress the body with zlib
   msg.serialize({"compression" : "zlib"})
+  # serialize it and compress the body with lz4
+  msg.serialize({"compression" : "lz4"})
   # serialize it and compress the body with snappy
   msg.serialize({"compression" : "snappy"})
 
@@ -107,6 +109,12 @@ that can be:
 
 base64
     :py:mod:`base64` encoding (for binary body or compressed body).
+    
+lz4
+    :py:mod:`lz4` compression.
+
+snappy
+    :py:mod:`snappy` (http://code.google.com/p/snappy/).
 
 utf8
     :py:mod:`utf8` encoding (only needed for a compressed text body).
@@ -114,9 +122,6 @@ utf8
 zlib
     :py:mod:`zlib` compression.
     
-snappy
-    Snappy compression (http://code.google.com/p/snappy/).
-
 Here is for instance the JSON object representing an empty message
 (i.e. the result of :py:meth:`Message`)::
 
@@ -242,11 +247,13 @@ except ImportError:
 import sys
 from messaging.error import MessageError
 
-COMPRESSORS_SUPPORTED = ["snappy", "zlib"]
+COMPRESSORS_SUPPORTED = ["lz4", "snappy", "zlib"]
 _COMPRESSORS = dict()
 for module in COMPRESSORS_SUPPORTED:
     try:
         _COMPRESSORS[module] = __import__(module)
+        if module == "zlib":
+            _COMPRESSORS[module].uncompress = _COMPRESSORS[module].decompress
     except ImportError:
         pass
     except SystemError:
@@ -301,7 +308,7 @@ def dejsonify(obj):
         body = base64.b64decode(body)
     for method in _COMPRESSORS:
         if method in encoding:
-            body = _COMPRESSORS[method].decompress(body)
+            body = _COMPRESSORS[method].uncompress(body)
     if 'utf8' in encoding:
         body = body.decode('utf-8')
     if is_bytes(body):

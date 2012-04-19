@@ -2,6 +2,7 @@ Change log for python-messaging
 
 0.7	X X X 2012
         * [mp] support added for null dirq
+        * [mp] support added for lz4 compression
 
 0.6	Tue Apr 17 2012
 	* [mp] improvements and bug fixing
