@@ -33,7 +33,7 @@ def dirq_normal():
     msg2 = Message(body="hello world 2".encode("utf-8") , header={"h2":"val2"})
     
     # creating a normal queue
-    option = {"type" : "DQ",
+    option = {"type" : "DQN",
               "path" : "%s/%s" % (PATH, "normal"), }
     dirq = queue.new(option)
     
