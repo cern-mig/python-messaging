@@ -76,6 +76,33 @@ class QueueTest(unittest.TestCase):
     def test_queue_simple(self):
         """ Test simple dirq. """
         self.__test_dq("DQS")
+        
+    def test_queue_null(self):
+        """ Test null dirq. """
+        qtype = "NULL"
+        print("checking %s queue" % qtype)
+        option = {'type' : qtype}
+        try:
+            dirq = queue.new(option)
+        except SyntaxError:
+            print(">>>>>>>> Dirq %s not supported in this Python version" %
+                  qtype)
+            return False
+        except ImportError:
+            print(">>>>>>>> Dirq %s not installed or not in PYTHONPATH" %
+                  qtype)
+            return False
+        msg = self.generator.message()
+        element = dirq.add_message(msg)
+        self.assertEqual(element, "", "add_message should return empty string")
+        try:
+            msg2 = dirq.get_message(element)
+            raise AssertionError("null queue get_message should "
+                                 "raise NotImplementedError")
+        except NotImplementedError:
+            pass
+        print("...%s queue ok" % qtype)
+            
 
 if __name__ == "__main__":
     unittest.main()  
