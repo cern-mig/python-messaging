@@ -452,10 +452,11 @@ class Message(object):
             if compression:
                 _compress_it(compression, obj)
             _base64_it(obj)
-        if obj.get("encoding"):
-            obj["encoding"] = "+".join(obj["encoding"].keys())
-        else:
-            obj["encoding"] = ""
+        if "encoding" in obj:
+            if obj["encoding"]:
+                obj["encoding"] = "+".join(obj["encoding"].keys())
+            else:
+                del(obj["encoding"])
         return obj
         
     def stringify(self, option=dict()):
