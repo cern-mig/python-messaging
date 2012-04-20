@@ -248,6 +248,8 @@ import sys
 from messaging.error import MessageError
 
 COMPRESSORS_SUPPORTED = ["lz4", "snappy", "zlib"]
+AVAILABLE_DECODING = list(COMPRESSORS_SUPPORTED)
+AVAILABLE_DECODING.extend(["base64", "utf8",])
 _COMPRESSORS = dict()
 for module in COMPRESSORS_SUPPORTED:
     try:
@@ -304,6 +306,12 @@ def dejsonify(obj):
         encoding = o_encoding.split('+')
         if not is_bytes(body):
             body = body.encode()
+    for token in encoding:
+        if token not in AVAILABLE_DECODING:
+            raise MessageError("decoding not supported: %s" % token)
+        elif (token in COMPRESSORS_SUPPORTED and token not in COMPRESSORS):
+            raise MessageError("decoding supported but not installed: %s" %
+                               token)
     if 'base64' in encoding:
         body = base64.b64decode(body)
     for method in _COMPRESSORS:

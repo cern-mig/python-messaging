@@ -18,6 +18,7 @@ __version__ = "$Revision: 1 $"
 from messaging.message import Message, COMPRESSORS
 import messaging.message as message
 from messaging.generator import Generator
+from messaging.error import MessageError
 import os
 import re
 import sys
@@ -197,7 +198,16 @@ class MessageTest(unittest.TestCase):
                 filer = open("%s/%s" % (folder, each), 'rb')
                 serialized = EMPTY_BYTES.join(filer.readlines())
                 filer.close()
-                msg = message.deserialize(serialized)
+                try:
+                    msg = message.deserialize(serialized)
+                except MessageError:
+                    error = sys.exc_info()[1]
+                    if "decoding supported but not installed" in \
+                        "%s" % error:
+                        print("skipping compliance test for %s: %s" % (each,
+                                                                   error))
+                    else:
+                        raise error
                 md5 = re.split('[\.-]', each)[0]
                 msg_md5 = msg.md5()
                 self.assertEqual(md5, msg_md5,
