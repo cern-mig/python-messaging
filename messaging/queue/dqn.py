@@ -54,7 +54,7 @@ from dirq.queue import Queue
 
 class DQN(Queue):
     """
-    Abstraction of a Queue message queue.
+    Abstraction of a Normal Queue message queue.
     """
     
     def __init__(self, **data):
