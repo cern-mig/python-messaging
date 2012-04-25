@@ -1,6 +1,10 @@
 Change log for python-messaging
 
-0.7	X X X 2012
+0.8	X X X 2012
+	* [mp] fixing dqn bug
+	* [mp] fixing bug when body was not set
+
+0.7	Mon Apr 23 2012
         * [mp] support added for null dirq
         * [mp] support added for lz4 compression
 
