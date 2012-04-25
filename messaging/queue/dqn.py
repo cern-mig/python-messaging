@@ -62,8 +62,8 @@ class DQN(Queue):
         Return a new :py:class:`DQN` object.
         """
         data["schema"] = { "header" : "table",
-                          "body" : "binary?",
-                          "text" : "string?", }
+                           "binary" : "binary?",
+                           "text" : "string?", }
         super(DQN, self).__init__(**data)
     
     def add_message(self, msg):
@@ -81,7 +81,7 @@ class DQN(Queue):
         if msg.text:
             data['text'] = msg.body
         else:
-            data['body'] = msg.body
+            data['binary'] = msg.body
         return self.add(data)
     
     def get_message(self, element):
@@ -93,7 +93,7 @@ class DQN(Queue):
         if "text" in data:
             body = data["text"]
         else:
-            body = data.get("body", None)
+            body = data.get("binary", None)
         return Message(header = data["header"], body = body)
     
     def dequeue_message(self, element):
@@ -110,5 +110,5 @@ class DQN(Queue):
         if "text" in data:
             body = data["text"]
         else:
-            body = data.get("body", None)
+            body = data.get("binary", None)
         return Message(header = data["header"], body = body)
