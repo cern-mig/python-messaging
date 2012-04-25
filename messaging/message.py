@@ -392,9 +392,9 @@ class Message(object):
         """ Set the message body to new value. """
         if value is None:
             self.__body = DEFAULT_BODY
-            return
-        self.__body = value
-        self.text = not is_bytes(value)
+        else:
+            self.__body = value
+        self.text = not is_bytes(self.__body)
     body = property(get_body, set_body)
     
     def get_header(self):
