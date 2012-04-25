@@ -12,15 +12,16 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 """
-__version__ = "$Revision: 1 $"
-# $Source$
 
+from messaging.error import MessageError
 from messaging.generator import Generator
+import messaging.message as message
 import messaging.queue as queue
 import os
 import re
 import shutil
 import unittest
+from message_test import COMPLIANCE_NAME, EMPTY_BYTES
 
 class QueueTest(unittest.TestCase):
 
@@ -51,23 +52,50 @@ class QueueTest(unittest.TestCase):
             print(">>>>>>>> Dirq %s not installed or not in PYTHONPATH" %
                   qtype)
             return False
-        msg = self.generator.message()
-        element = dirq.add_message(msg)
-        msg2 = None
-        if dirq.lock(element):
-            msg2 = dirq.get_message(element)
-            dirq.unlock(element)
-        self.assertEqual(msg, msg2,
-                         "messages should be equal:\n%s\n###\n%s" %
-                         (msg, msg2))
-        try:
-            msg3 = dirq.dequeue_message(element)
-            self.assertEqual(msg, msg3,
-                             "messages should be equal:\n%s\n###\n%s" %
-                             (msg, msg3))
-        except AttributeError:
-            print("dequeue method not supported by this queue type")
-        print("...%s queue ok" % qtype)
+        
+        path = ["test/compliance", ]
+        counter = 0
+        for folder in path:
+            content = sorted(os.listdir(folder))
+            for each in content:
+                if not COMPLIANCE_NAME.match(each):
+                    continue
+                filer = open("%s/%s" % (folder, each), 'rb')
+                serialized = EMPTY_BYTES.join(filer.readlines())
+                filer.close()
+                try:
+                    msg = message.deserialize(serialized)
+                except MessageError:
+                    error = sys.exc_info()[1]
+                    if "decoding supported but not installed" in \
+                        "%s" % error:
+                        print("skipping compliance test for %s: %s" % (each,
+                                                                   error))
+                    else:
+                        raise error
+                md5 = re.split('[\.-]', each)[0]
+                msg_md5 = msg.md5()
+                self.assertEqual(md5, msg_md5,
+                                 "deserialization of %s failed:%s\nresult:%s"
+                                % (each, msg, msg_md5))
+                element = dirq.add_message(msg)
+                msg2 = None
+                if dirq.lock(element):
+                    msg2 = dirq.get_message(element)
+                    dirq.unlock(element)
+                self.assertEqual(msg, msg2,
+                                 "messages should be equal:\n%s\n###\n%s" %
+                                 (msg, msg2))
+                try:
+                    msg3 = dirq.dequeue_message(element)
+                    self.assertEqual(msg, msg3,
+                                     "messages should be equal:\n%s\n###\n%s" %
+                                     (msg, msg3))
+                except AttributeError:
+                    # "dequeue method not supported by this queue type"
+                    pass
+                counter += 1
+        print("...%s queue ok, checked it with %d files" % (qtype, counter))
 
     def test_queue_normal(self):
         """ Test normal dirq. """
