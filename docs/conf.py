@@ -251,4 +251,5 @@ texinfo_documents = [
 intersphinx_mapping = {
     'http://docs.python.org/': None,
     'dirq' : ('http://mpaladin.web.cern.ch/mpaladin/python/dirq/', None),
+    'auth.credential' : ('http://mpaladin.web.cern.ch/mpaladin/python/auth.credential/', None),
 }
