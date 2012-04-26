@@ -19,6 +19,7 @@ import messaging.message as message
 import messaging.queue as queue
 import os
 import re
+import sys
 import shutil
 import unittest
 from message_test import COMPLIANCE_NAME, EMPTY_BYTES
