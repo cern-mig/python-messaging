@@ -10,4 +10,9 @@ install:
   - pip install dirq --use-mirrors || echo "ok"
   - pip install lz4 --use-mirrors
 # command to run tests
-script: python setup.py test
+script:
+  - python setup.py test
+  - python setup.py install
+  - python example/generator_example.py
+  - python example/message_example.py
+  - python example/queue_example.py
