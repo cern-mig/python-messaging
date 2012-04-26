@@ -15,4 +15,5 @@ script:
   - python setup.py install
   - python example/generator_example.py
   - python example/message_example.py
-  - python example/queue_example.py
+# when dirq will support python3
+#  - python example/queue_example.py
