@@ -1,6 +1,6 @@
 Change log for python-messaging
 
-0.8	X X X 2012
+0.8	Mon May 07 2012
 	* [mp] fixing dqn bug
 	* [mp] fixing bug when body was not set
 
