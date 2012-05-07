@@ -7,7 +7,7 @@ python:
 # command to install dependencies
 install:
   - pip install simplejson --use-mirrors || echo "ok"
-  - pip install dirq --use-mirrors || echo "ok"
+  - pip install dirq --use-mirrors
   - pip install lz4 --use-mirrors
 # command to run tests
 script:
@@ -15,5 +15,4 @@ script:
   - python setup.py install
   - python example/generator_example.py
   - python example/message_example.py
-# when dirq will support python3
-#  - python example/queue_example.py
+  - python example/queue_example.py
