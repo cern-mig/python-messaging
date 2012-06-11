@@ -1,5 +1,8 @@
 Change log for python-messaging
 
+0.9	Mon Jun 11 2012
+	* [mp] fixing bug in size method
+
 0.8	Mon May 07 2012
 	* [mp] fixing dqn bug
 	* [mp] fixing bug when body was not set
