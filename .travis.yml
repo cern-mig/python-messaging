@@ -8,7 +8,7 @@ python:
 install:
   - pip install simplejson --use-mirrors || echo "ok"
   - pip install dirq --use-mirrors
-  - pip install lz4 --use-mirrors
+  - pip install lz4 --use-mirrors || echo "ok"
 # command to run tests
 script:
   - python setup.py test
