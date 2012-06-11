@@ -7,7 +7,7 @@ Synopsis
 
 Example::
 
-  importing messaging.message as message
+  import messaging.message as message
 
   # constructor + setters
   msg = message.Message()
@@ -479,7 +479,7 @@ class Message(object):
     def size(self):
         """ Returns an approximation of the message size. """
         size = len(self.body) + 1
-        size += sum([len(key) + len (value) + 2
+        size += sum([len(str(key)) + len(str(value)) + 2
                      for (key, value) in self.header.items()])
         return size
         

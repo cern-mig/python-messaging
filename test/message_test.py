@@ -65,7 +65,10 @@ class MessageTest(unittest.TestCase):
     def test_message_creation(self):
         """ Test message creation. """
         print("checking message creation")
-        msg = Message(body='dfhkdfgkfd' , header={'l':'ff'})
+        msg = Message(body='dfhkdfgkfd' , header={'l' : 'ff',
+                                                  'lid' : 56,
+                                                   567 : 34, })
+        msg.size()
         print("...message creation ok")
         
     def test_message_compression(self):
