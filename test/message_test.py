@@ -65,6 +65,11 @@ class MessageTest(unittest.TestCase):
     def test_message_creation(self):
         """ Test message creation. """
         print("checking message creation")
+        msg = Message()
+        msg.header["should not"] = "appear"
+        msg = Message()
+        self.assertEqual(msg.header, dict(),
+                         "message header should be empty: %s" % msg)
         msg = Message(body='dfhkdfgkfd' , header={'l' : 'ff',
                                                   'lid' : 56,
                                                    567 : 34, })

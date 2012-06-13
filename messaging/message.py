@@ -378,7 +378,7 @@ def _compress_it(compression, obj):
 class Message(object):
     """ A Message abstraction class. """
     
-    def __init__(self, body=DEFAULT_BODY, header=dict()):
+    def __init__(self, body=DEFAULT_BODY, header=None):
         """ Initialize the object """
         self.body = body
         self.header = header
