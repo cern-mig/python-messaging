@@ -105,6 +105,20 @@ class QueueTest(unittest.TestCase):
     def test_queue_simple(self):
         """ Test simple dirq. """
         self.__test_dq("DQS")
+    
+    def test_queue_redis(self):
+        """ Test redis dirq. """
+        try:
+            import redis
+            red = redis.Redis()
+            red.set("foo", "bar")
+            self.__test_dq("DQR")
+            return
+        except redis.exceptions.ConnectionError:
+            pass
+        except ImportError:
+            pass
+        print("*** redis not found, skipping redis test")
         
     def test_queue_null(self):
         """ Test null dirq. """
