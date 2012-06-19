@@ -6,6 +6,7 @@ python:
   - "3.2"
 # command to install dependencies
 install:
+  - pip install redis --use-mirrors || echo "ok"
   - pip install simplejson --use-mirrors || echo "ok"
   - pip install dirq --use-mirrors
   - pip install lz4 --use-mirrors || echo "ok"
