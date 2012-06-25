@@ -1,7 +1,7 @@
 Change log for python-messaging
 
-X.X	Wed Jun 20 2012
-        * adding redis message queue support
+0.10	Mon Jun 25 2012
+        * [mp] adding redis message queue support
         * [mp] fixing bug in default value
 
 0.9	Mon Jun 11 2012
