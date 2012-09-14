@@ -24,8 +24,10 @@ Example::
   for name in mq:
       if mq.lock(name):
           msg = mq.get_message(name)
-      # one could use mq.unlock(name) to only browse the queue...
-      mq.remove(name)
+          # unlock the element
+          mq.unlock(name)
+          # othwerwise, if you want to remove the element
+          # mq.remove(name)
 
 Description
 -----------
