@@ -11,7 +11,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
  Copyright (C) 2012 CERN
 """
 
@@ -20,11 +20,12 @@ from messaging.stomppy import MessageListener
 import stomp
 import time
 
+
 class MyListener(MessageListener):
     def __init__(self):
         self.uuid = None
         self.done = False
-    
+
     def error(self, message):
         print("received an error %s" % message)
 
@@ -32,7 +33,8 @@ class MyListener(MessageListener):
         if message.header.get("x-uuid") == self.uuid:
             self.done = True
         print("received message %s" % message)
-        
+
+
 def stomppy_test():
     """
     Example that shows how to handle messages
@@ -43,20 +45,20 @@ def stomppy_test():
     conn.set_listener("", listener)
     conn.start()
     conn.connect()
-    
+
     msg = Message(body="stomppy_test".decode(),
-                  header={'destination' : '/topic/test.stomppy',
-                          'x-uuid' : "%s" % time.time()})
+                  header={'destination': '/topic/test.stomppy',
+                          'x-uuid': "%s" % time.time()})
     listener.uuid = msg.header['x-uuid']
     conn.subscribe(destination='/topic/test.stomppy', ack='auto')
     conn.send(msg.body, **msg.header)
     print("sending message %s" % msg)
-    
+
     t1 = time.time()
     while not listener.done and (time.time() - t1 < 2):
         time.sleep(0.1)
     conn.disconnect()
     print("...stomppy example ok")
-    
+
 if __name__ == "__main__":
     stomppy_test()

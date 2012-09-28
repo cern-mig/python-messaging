@@ -18,11 +18,12 @@ import messaging.generator as generator
 import re
 import unittest
 
+
 class MessageTest(unittest.TestCase):
 
     def setUp(self):
         """ setup the test environment """
-    
+
     def tearDown(self):
         """ restore the test environment """
 
@@ -33,28 +34,28 @@ class MessageTest(unittest.TestCase):
             self.assert_(integer >= 0 and integer <= index * 2,
                          "size not expected")
         print("...integers randomization ok")
-    
+
     def test_rndbin(self):
         print("checking binary string creation")
         for index in range(1000):
             bin = generator.rndbin(index)
             self.assert_(len(bin) == index, "size not expected")
         print("...binary string creation ok")
-    
+
     def test_rndb64(self):
         print("checking base64 string creation")
         for index in range(1000):
             b64 = generator.rndb64(index)
             self.assert_(len(b64) == index, "size not expected")
         print("...base64 string creation ok")
-    
+
     def test_rndstr(self):
         print("checking string creation")
         for index in range(1000):
             string = generator.rndstr(index)
             self.assert_(len(string) == index, "size not expected")
         print("...string creation ok")
-        
+
     def test_generator(self):
         print("checking message generation")
         types = ['index', 'text', 'binary', 'base64']
@@ -79,4 +80,4 @@ class MessageTest(unittest.TestCase):
         print("...message generation ok")
 
 if __name__ == "__main__":
-    unittest.main()  
+    unittest.main()

@@ -11,17 +11,18 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
  Copyright (C) 2012 CERN
 """
 
 from messaging.generator import Generator
 import messaging.generator as generator
 
+
 def generate_messages():
     """
     Example that shows how to generate random messages with the modules
-    provided. 
+    provided.
     Generator takes different parameters:
         body_content: content type of the body between
                       ['index', 'text', 'binary', 'base64']
@@ -42,7 +43,8 @@ def generate_messages():
     assert(len(msg.body) == 1024)
     assert(len(msg.header) == 6)
     print("...message generation OK!")
-    
+
+
 def generate_int():
     """
     Example which shows how to generate integers in a distribution between
@@ -57,6 +59,7 @@ def generate_int():
         assert(integer >= 0 and integer <= index * 2)
     print("...integers generation OK!")
 
+
 def generate_bin():
     """
     Example which shows how to generate binary strings of given length.
@@ -66,7 +69,8 @@ def generate_bin():
     bin = generator.rndbin(length)
     assert(len(bin) == length)
     print("...binary string generation OK!")
-    
+
+
 def generate_b64():
     """
     Example which shows how to generate base64 strings of given length.
@@ -76,7 +80,8 @@ def generate_b64():
     b64 = generator.rndb64(length)
     assert(len(b64) == length)
     print("...base64 string generation OK!")
-    
+
+
 def generate_str():
     """
     Example which shows how to generate strings of given length.
@@ -86,6 +91,7 @@ def generate_str():
     string = generator.rndstr(length)
     assert(len(string) == length)
     print("...string generation OK!")
+
 
 def main():
     generate_int()

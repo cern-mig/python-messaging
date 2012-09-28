@@ -11,7 +11,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
  Copyright (C) 2012 CERN
 """
 
@@ -21,7 +21,8 @@ import messaging.queue as queue
 import os
 import shutil
 
-PATH = "%s/%s" % (os.getcwd() , generator.rndstr(10))
+PATH = "%s/%s" % (os.getcwd(), generator.rndstr(10))
+
 
 def dirq_normal():
     """
@@ -29,18 +30,18 @@ def dirq_normal():
     """
     print("dirq normal")
     # creating a couple of messages
-    msg1 = Message(body="hello world".encode("utf-8") , header={"h1":"val1"})
-    msg2 = Message(body="hello world 2".encode("utf-8") , header={"h2":"val2"})
-    
+    msg1 = Message(body="hello world".encode("utf-8"), header={"h1": "val1"})
+    msg2 = Message(body="hello world 2".encode("utf-8"), header={"h2": "val2"})
+
     # creating a normal queue
-    option = {"type" : "DQN",
-              "path" : "%s/%s" % (PATH, "normal"), }
+    option = {"type": "DQN",
+              "path": "%s/%s" % (PATH, "normal"), }
     dirq = queue.new(option)
-    
+
     # adding the two messages
     element1 = dirq.add_message(msg1)
     element2 = dirq.add_message(msg2)
-    
+
     # getting back the messages and checking they are as expected
     post_msg2 = None
     if dirq.lock(element2):
@@ -51,25 +52,26 @@ def dirq_normal():
         post_msg1 = dirq.get_message(element1)
     assert(post_msg1 == msg1)
     print("...dirq normal OK!")
-    
+
+
 def dirq_simple():
     """
     Example that shows how to use a simple dirq
     """
     print("dirq simple")
     # creating a couple of messages
-    msg1 = Message(body="hello world".encode("utf-8") , header={"h1":"val1"})
-    msg2 = Message(body="hello world 2".encode("utf-8") , header={"h2":"val2"})
-    
+    msg1 = Message(body="hello world".encode("utf-8"), header={"h1": "val1"})
+    msg2 = Message(body="hello world 2".encode("utf-8"), header={"h2": "val2"})
+
     # creating a simple queue
-    option = {"type" : "DQS",
-              "path" : "%s/%s" % (PATH, "simple"), }
+    option = {"type": "DQS",
+              "path": "%s/%s" % (PATH, "simple"), }
     dirq = queue.new(option)
-    
+
     # adding the two messages
     element1 = dirq.add_message(msg1)
     element2 = dirq.add_message(msg2)
-    
+
     # getting back the messages and checking they are as expected
     post_msg2 = None
     if dirq.lock(element2):
@@ -80,7 +82,8 @@ def dirq_simple():
         post_msg1 = dirq.get_message(element1)
     assert(post_msg1 == msg1)
     print("...dirq simple OK!")
-    
+
+
 def main():
     shutil.rmtree(PATH, ignore_errors=True)
     dirq_normal()

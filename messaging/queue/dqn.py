@@ -51,41 +51,42 @@ is stored either as a text or binary string.
 Copyright (C) 2012 CERN
 """
 
-from messaging.message import Message, deserialize
+from messaging.message import Message
 from dirq.queue import Queue
+
 
 class DQN(Queue):
     """
     Abstraction of a Normal Queue message queue.
     """
-    
+
     def __init__(self, **data):
         """
         Return a new :py:class:`DQN` object.
         """
-        data["schema"] = { "header" : "table",
-                           "binary" : "binary?",
-                           "text" : "string?", }
+        data["schema"] = {"header": "table",
+                          "binary": "binary?",
+                          "text": "string?", }
         super(DQN, self).__init__(**data)
-    
+
     def add_message(self, msg):
         """
         Add the given message (a :py:class:`messaging.message.Message` object)
         to the queue and return the corresponding element name.
-        
+
         Raise:
             :py:class:`TypeError` if the parameter is not a
             :py:class:`messaging.message.Message`.
         """
         if not isinstance(msg, Message):
             raise TypeError("Message expected: %s" % msg)
-        data = {"header" : msg.header}
+        data = {"header": msg.header}
         if msg.text:
             data['text'] = msg.body
         else:
             data['binary'] = msg.body
         return self.add(data)
-    
+
     def get_message(self, element):
         """
         Get the message from the given element (which must be locked) and
@@ -96,13 +97,13 @@ class DQN(Queue):
             body = data["text"]
         else:
             body = data.get("binary", None)
-        return Message(header = data["header"], body = body)
-    
+        return Message(header=data["header"], body=body)
+
     def dequeue_message(self, element):
         """
         Dequeue the message from the given element and
         return a :py:class:`messaging.message.Message` object.
-        
+
         Raise:
             :py:class:`TypeError` if the parameter is not a :py:mod:`string`.
         """
@@ -113,4 +114,4 @@ class DQN(Queue):
             body = data["text"]
         else:
             body = data.get("binary", None)
-        return Message(header = data["header"], body = body)
+        return Message(header=data["header"], body=body)

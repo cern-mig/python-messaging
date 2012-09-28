@@ -25,6 +25,7 @@ Copyright (C) 2012 CERN
 
 import sys
 
+
 def new(option):
     """
     Create a new message queue object; options must contain the type of

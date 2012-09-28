@@ -16,6 +16,7 @@
 import test.all_tests
 import unittest
 
+
 def main():
     """ run the tests """
     test_suite = test.all_tests.create_messagingtest_suite()

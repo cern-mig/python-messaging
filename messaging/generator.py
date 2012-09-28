@@ -33,7 +33,7 @@ from messaging.error import GeneratorError
 from messaging.message import Message
 import os
 import random
-import time
+
 
 def rndint(size):
     """
@@ -47,6 +47,7 @@ def rndint(size):
         + random.random() + random.random() + random.random()
     return int(rnd * size / 6 + 0.5)
 
+
 def maybe_randomize(size):
     """ Maybe randomize int. """
     if size is not None and size < 0:
@@ -54,12 +55,14 @@ def maybe_randomize(size):
     else:
         return size
 
+
 def rndbin(size):
     """
     Returns a random binary string of the given size.
     """
-    bin = binascii.hexlify(os.urandom(int(size / 2) + 1))
-    return bin[0:size]
+    binay = binascii.hexlify(os.urandom(int(size / 2) + 1))
+    return binay[0:size]
+
 
 def rndb64(size):
     """
@@ -68,29 +71,31 @@ def rndb64(size):
     rnd = base64.b64encode(rndbin(int(size * 0.75 + 1))).decode()
     return rnd[0:size]
 
+
 def rndstr(size):
     """
     Returns a random text string of the given size (all printable characters).
     """
     rnd = ''
     while size > 0:
-        bin = rndbin(int(size * 1.4 + 1)).decode()
-        rnd += ''.join([char for char in bin
+        binary = rndbin(int(size * 1.4 + 1)).decode()
+        rnd += ''.join([char for char in binary
                        if ord(char) > 31 and ord(char) < 127])
-        size -= len(bin)
+        size -= len(binary)
     if size:
         rnd = rnd[0:size]
     return rnd
 
+
 class Generator(object):
     """ A message generator tool. """
-    
+
     def __init__(self, **kwargs):
         """ Returns a message generator. """
         self.__option = dict()
         if isinstance(kwargs, dict):
             self.__option['body_content'] = kwargs.get(
-                                                'body_content', 'index')
+                'body_content', 'index')
             try:
                 self.__option['body_size'] = kwargs['body_size']
             except KeyError:
@@ -100,23 +105,23 @@ class Generator(object):
             except KeyError:
                 pass
             self.__option['header_value_size'] = kwargs.get(
-                                                'header_value_size', -32)
+                'header_value_size', -32)
             self.__option['header_name_size'] = kwargs.get(
-                                                'header_name_size', -16)
+                'header_name_size', -16)
             self.__option['header_name_prefix'] = kwargs.get(
-                                                'header_name_prefix', 'rnd-')
+                'header_name_prefix', 'rnd-')
         self.__index = 0
-        
+
     def set(self, option, value):
         """ Set Generator option to value provided. """
         self.__option[option] = value
-        
+
     def message(self):
         """
         Returns a newly generated Message object
-        
+
         Options
-        
+
         When creating a message generator, the following options can be given:
 
         body-content

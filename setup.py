@@ -30,12 +30,16 @@ CLASSIFIERS = [
 
 from distutils.core import setup, Command
 
+
 class test(Command):
     user_options = []
+
     def initialize_options(self):
         pass
+
     def finalize_options(self):
         pass
+
     def run(self):
         from test import run_tests
         run_tests.main()
@@ -51,5 +55,4 @@ setup(name=NAME,
       url=URL,
       classifiers=CLASSIFIERS,
       packages=['messaging', 'messaging.queue'],
-      cmdclass={'test' : test}
-     )
+      cmdclass={'test': test}, )

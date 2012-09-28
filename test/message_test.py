@@ -23,17 +23,18 @@ import sys
 import unittest
 
 try:
-    range=xrange
+    range = xrange
 except NameError:
     pass
 
-MESSAGE_CONVERT_OPTIONS = [dict(),]
+MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
-    MESSAGE_CONVERT_OPTIONS.append({'compression' : compressor})
+    MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
 
 _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
+
 
 def empty_string():
     """ Return empty unicode string based on python version. """
@@ -42,14 +43,15 @@ def empty_string():
     except NameError:
         return ''
 
+
 class MessageTest(unittest.TestCase):
 
     def setUp(self):
         """ Setup the test environment. """
-    
+
     def tearDown(self):
         """ Restore the test environment. """
-    
+
     def iterate(self, func):
         """ Iterate over body_content type and size
         and call giveb function.
@@ -61,7 +63,7 @@ class MessageTest(unittest.TestCase):
                 func(body_content=type,
                      body_size=size,
                      header_count=header_count)
-                
+
     def test_message_creation(self):
         """ Test message creation. """
         print("checking message creation")
@@ -70,12 +72,12 @@ class MessageTest(unittest.TestCase):
         msg = Message()
         self.assertEqual(msg.header, dict(),
                          "message header should be empty: %s" % msg)
-        msg = Message(body='dfhkdfgkfd' , header={'l' : 'ff',
-                                                  'lid' : 56,
-                                                   567 : 34, })
+        msg = Message(body='dfhkdfgkfd', header={'l': 'ff',
+                                                 'lid': 56,
+                                                 567: 34, })
         msg.size()
         print("...message creation ok")
-        
+
     def test_message_compression(self):
         """ Test message compression. """
         print("checking message compression")
@@ -83,14 +85,14 @@ class MessageTest(unittest.TestCase):
         body = ''.join(['a' for each in range(length)])
         ok = list()
         for module in COMPRESSORS:
-            msg = Message(body=body , header={'l':'ff'})
-            jsonified = msg.jsonify({'compression' : module})
+            msg = Message(body=body, header={'l': 'ff'})
+            jsonified = msg.jsonify({'compression': module})
             self.assert_(len(jsonified['body']) < length * 0.9,
                          "message should have been compressed with %s" %
                          module)
             ok.append(module)
         print("...message compression ok for %s" % ",".join(ok))
-    
+
     def test_message_fullchain(self):
         """
         Test message fullchain.
@@ -100,12 +102,12 @@ class MessageTest(unittest.TestCase):
         print("checking message fullchain")
         self.iterate(self.__fullchain)
         print("...message fullchain ok")
-    
+
     def __fullchain(self, **kwargs):
         gen = Generator(**kwargs)
         msgA = gen.message()
         msgB = message.deserialize(msgA.serialize())
-        self.assertEqual(msgA.size(), msgB.size(), 
+        self.assertEqual(msgA.size(), msgB.size(),
                          "message size not matching")
         self.assertEqual(msgA, msgB,
                          "Error, not the same after serialization")
@@ -113,7 +115,7 @@ class MessageTest(unittest.TestCase):
         self.assertEqual(msgA, msgC,
                          "Error, not the same after cloning\n%s\n%s\n" %
                          (msgA, msgC))
-                
+
     def test_message_jsonify(self):
         """
         Test message jsonification.
@@ -123,7 +125,7 @@ class MessageTest(unittest.TestCase):
         print("checking message jsonification")
         self.iterate(self.__jsonify)
         print("...message jsonification ok")
-    
+
     def __jsonify(self, **kwargs):
         gen = Generator(**kwargs)
         msg = gen.message()
@@ -132,7 +134,7 @@ class MessageTest(unittest.TestCase):
             msgB = message.dejsonify(jsonified)
         self.assertEqual(msg, msgB, "Error in de/jsonification:\n%s\n%s\n" %
                          (msg, msgB))
-    
+
     def test_message_stringify(self):
         """
         Test message stringification.
@@ -142,7 +144,7 @@ class MessageTest(unittest.TestCase):
         print("checking message stringification")
         self.iterate(self.__stringify)
         print("...message stringification ok")
-    
+
     def __stringify(self, **kwargs):
         gen = Generator(**kwargs)
         msg = gen.message()
@@ -152,7 +154,7 @@ class MessageTest(unittest.TestCase):
             self.assertEqual(msg, msgB,
                              "Error in de/stringification:\n%s\n%s\n" %
                              (msg, msgB))
-    
+
     def test_message_serialize(self):
         """
         Test message serialization.
@@ -162,7 +164,7 @@ class MessageTest(unittest.TestCase):
         print("checking message serialization")
         self.iterate(self.__serialize)
         print("...message serialization ok")
-        
+
     def __serialize(self, **kwargs):
         gen = Generator(**kwargs)
         msg = gen.message()
@@ -170,7 +172,7 @@ class MessageTest(unittest.TestCase):
             serialized = msg.serialize(option)
             msgB = message.deserialize(serialized)
             self.assertEqual(msg, msgB, "Error in de/serialization")
-            
+
     def test_md5(self):
         """
         Test message checksum.
@@ -179,12 +181,12 @@ class MessageTest(unittest.TestCase):
         print("checking message checksum")
         self.iterate(self.__md5)
         print("... message checksum ok")
-    
+
     def __md5(self, **kwargs):
         gen = Generator(**kwargs)
         checksum = gen.message().md5()
         self.assert_(len(checksum) == 32, "checksum length is not 32")
-                
+
     def test_messages_compliance(self):
         """
         Test message compliance.
@@ -209,18 +211,18 @@ class MessageTest(unittest.TestCase):
                 except MessageError:
                     error = sys.exc_info()[1]
                     if "decoding supported but not installed" in \
-                        "%s" % error:
-                        print("skipping compliance test for %s: %s" % (each,
-                                                                   error))
+                       "%s" % error:
+                        print("skipping compliance test for %s: %s"
+                              % (each, error))
                     else:
                         raise error
                 md5 = re.split('[\.-]', each)[0]
                 msg_md5 = msg.md5()
                 self.assertEqual(md5, msg_md5,
                                  "deserialization of %s failed:%s\nresult:%s"
-                                % (each, msg, msg_md5))
+                                 % (each, msg, msg_md5))
                 counter += 1
         print("...compliance ok, checked for %s messages" % counter)
-        
+
 if __name__ == "__main__":
-    unittest.main()  
+    unittest.main()

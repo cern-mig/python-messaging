@@ -15,13 +15,13 @@
 import glob
 import unittest
 
+
 def create_messagingtest_suite():
     """ create the suite with all the tests """
     test_file_strings = glob.glob('test/*test.py')
-    module_strings = ['test.' + string[5:-3] 
+    module_strings = ['test.' + string[5:-3]
                       for string in test_file_strings]
-    suites = [unittest.defaultTestLoader.loadTestsFromName(name) \
+    suites = [unittest.defaultTestLoader.loadTestsFromName(name)
               for name in module_strings]
     test_suite = unittest.TestSuite(suites)
     return test_suite
-

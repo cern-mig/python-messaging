@@ -7,6 +7,7 @@ Copyright (C) 2012 CERN
 
 from messaging.message import Message
 
+
 class MessageListener(object):
     """
     This class add support for Message module in stomppy default listener.
@@ -28,7 +29,7 @@ class MessageListener(object):
     def on_connected(self, headers, body):
         """ Translate standard call to custom one. """
         self.connected(Message(header=headers, body=body.decode()))
-        
+
     def connected(self, message):
         """
         Called by the STOMP connection when a CONNECTED frame is
@@ -46,7 +47,7 @@ class MessageListener(object):
         the connection until it has been reestablished.
         """
         pass
-        
+
     def on_heartbeat_timeout(self):
         """
         Called by the STOMP connection when a heartbeat message has not been
@@ -57,7 +58,7 @@ class MessageListener(object):
     def on_message(self, headers, body):
         """ Translate standard call to custom one. """
         self.message(Message(header=headers, body=body.decode()))
-        
+
     def message(self, message):
         """
         Called by the STOMP connection when a MESSAGE frame is
@@ -70,7 +71,7 @@ class MessageListener(object):
     def on_receipt(self, headers, body):
         """ Translate standard call to custom one. """
         self.receipt(Message(header=headers, body=body.decode()))
-        
+
     def receipt(self, message):
         """
         Called by the STOMP connection when a RECEIPT frame is
@@ -80,7 +81,7 @@ class MessageListener(object):
         \param message received from the server.
         """
         pass
-    
+
     def on_error(self, headers, body):
         """ Translate standard call to custom one. """
         self.error(Message(header=headers, body=body.decode()))
@@ -93,16 +94,16 @@ class MessageListener(object):
         \param message received from the server.
         """
         pass
-    
+
     def on_send(self, headers, body):
         """ Translate standard call to custom one. """
         self.send(Message(header=headers, body=body.decode()))
-    
+
     def send(self, message):
         """
         Called by the STOMP connection when it is in the process
         of sending a message.
-        
+
         \param message being sent.
         """
         pass

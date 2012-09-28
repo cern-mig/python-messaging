@@ -45,23 +45,24 @@ Copyright (C) 2012 CERN
 from messaging.message import Message, deserialize
 from dirq.QueueSimple import QueueSimple
 
+
 class DQS(QueueSimple):
     """
     Abstraction of a :py:class:`dirq.QueueSimple.QueueSimple` message queue.
     """
-    
+
     def __init__(self, **data):
         """
         Return a new :py:class:`DQS` object.
         """
         self.__compression = data.pop('compression', None)
         super(DQS, self).__init__(**data)
-    
+
     def add_message(self, msg):
         """
         Add the given message (a :py:class:`messaging.message.Message` object)
         to the queue and return the corresponding element name.
-        
+
         Raise:
             TypeError if the parameter is not a
             :py:class:`messaging.message.Message`.
@@ -70,10 +71,10 @@ class DQS(QueueSimple):
             raise TypeError("message type not expected: %s" % msg)
         compression = self.__compression
         if compression:
-            return self.add(msg.serialize({'compression' : compression}))
+            return self.add(msg.serialize({'compression': compression}))
         else:
             return self.add(msg.serialize())
-    
+
     def get_message(self, element):
         """
         Dequeue the message from the given element and
