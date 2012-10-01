@@ -6,12 +6,16 @@ python:
   - "3.2"
 # command to install dependencies
 install:
-  - pip install redis --use-mirrors || echo "ok"
+  - pip install redis --use-mirrors
   - pip install simplejson --use-mirrors || echo "ok"
   - pip install dirq --use-mirrors
   - pip install lz4 --use-mirrors || echo "ok"
+  - pip install pep8 --use-mirrors
 # command to run tests
 script:
+  - pep8 messaging
+  - pep8 example
+  - pep8 test
   - python setup.py test
   - python setup.py install
   - python example/generator_example.py
