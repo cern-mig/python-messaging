@@ -241,9 +241,9 @@ except ImportError:
     md5_hash = md5.md5
 import re
 try:
-    import simplejson as json
-except ImportError:
     import json
+except ImportError:
+    import simplejson as json
 import sys
 from messaging.error import MessageError
 
