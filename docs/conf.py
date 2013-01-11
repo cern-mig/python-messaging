@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'messaging'
-copyright = u'Copyright (C) 2012 CERN - Author: %s' % messaging.AUTHOR
+copyright = u'Copyright (C) 2013 CERN - Author: %s' % messaging.AUTHOR
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -14,10 +14,10 @@ An Perl implementation of the same abstractions and queue algorithms
 is available at the following page:
 http://search.cpan.org/~lcons/Messaging-Message/
 
-Copyright (C) 2012 CERN
+Copyright (C) 2013 CERN
 """
 AUTHOR = "Massimo Paladin <massimo.paladin@gmail.com>"
-COPYRIGHT = "Copyright (C) 2012 CERN"
+COPYRIGHT = "Copyright (C) 2013 CERN"
 VERSION = "0.10"
 DATE = "25 Jun 2012"
 __author__ = AUTHOR

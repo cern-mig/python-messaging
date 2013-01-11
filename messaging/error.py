@@ -1,7 +1,7 @@
 """
 Errors used in the module.
 
-Copyright (C) 2012 CERN
+Copyright (C) 2013 CERN
 """
 
 
