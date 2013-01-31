@@ -39,7 +39,7 @@ Support and documentation
 After installing, you can find documentation for this module with the
 standard python help function command or at:
 
-    https://github.com/cern-mig/python-messaging
+    https://messaging.readthedocs.org/
 
 License and Copyright
 =====================
