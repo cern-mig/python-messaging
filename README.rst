@@ -39,7 +39,7 @@ Support and documentation
 After installing, you can find documentation for this module with the
 standard python help function command or at:
 
-    http://mpaladin.web.cern.ch/mpaladin/python/messaging/
+    https://github.com/cern-mig/python-messaging
 
 License and Copyright
 =====================

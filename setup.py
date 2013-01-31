@@ -10,7 +10,7 @@ AUTHOR = 'Massimo Paladin'
 AUTHOR_EMAIL = 'massimo.paladin@gmail.com'
 LICENSE = "ASL 2.0"
 PLATFORMS = "Any"
-URL = "https://github.com/mpaladin/python-messaging"
+URL = "https://github.com/cern-mig/python-messaging"
 CLASSIFIERS = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
