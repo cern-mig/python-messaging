@@ -2,7 +2,7 @@
 python-messaging
 ================
 
-.. image:: https://secure.travis-ci.org/mpaladin/python-messaging.png?branch=master
+.. image:: https://secure.travis-ci.org/cern-mig/python-messaging.png?branch=master
 
 Overview
 ========
