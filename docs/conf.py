@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'messaging'
-copyright = u'Copyright (C) 2013 CERN - Author: %s' % messaging.AUTHOR
+copyright = u'Copyright (C) 2013 CERN - Author: %s' % (messaging.AUTHOR, )
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -125,7 +125,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -250,6 +250,6 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'http://docs.python.org/': None,
-    'dirq' : ('http://mpaladin.web.cern.ch/mpaladin/python/dirq/', None),
-    'auth.credential' : ('http://mpaladin.web.cern.ch/mpaladin/python/auth.credential/', None),
+    'dirq' : ('https://dirq.readthedocs.org/en/latest/', None),
+    'auth.credential' : ('https://authcredential.readthedocs.org/en/latest/', None),
 }
