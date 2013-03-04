@@ -1,7 +1,8 @@
 #! /bin/sh
 
 PACKAGE_NAME=`basename ${PWD}`
-NAME="${PACKAGE_NAME#python-}"
+NAME=${PACKAGE_NAME#python-}
+NAME=${NAME/-/.}
 
 echo "package name detected: ${PACKAGE_NAME}"
 echo "python module detected: ${NAME}"
