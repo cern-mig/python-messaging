@@ -12,7 +12,7 @@ http://pypi.python.org/pypi/messaging/
 
 An Perl implementation of the same abstractions and queue algorithms
 is available at the following page:
-http://search.cpan.org/~lcons/Messaging-Message/
+http://search.cpan.org/dist/Messaging-Message/
 
 Copyright (C) 2013 CERN
 """

@@ -19,7 +19,7 @@ locally store messages.
 An Perl implementation of the same abstractions and queue algorithms
 is available in CPAN:
 
-    http://search.cpan.org/~lcons/Messaging-Message/
+    http://search.cpan.org/dist/Messaging-Message/
 
 Install
 =======
