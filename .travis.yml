@@ -17,7 +17,6 @@ install:
   - pip install pep8 --use-mirrors
 # command to run tests
 script:
-  - exit 1
   - pep8 messaging example test
   - python setup.py test
   - python setup.py install
