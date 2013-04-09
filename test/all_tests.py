@@ -16,7 +16,7 @@ import glob
 import unittest
 
 
-def create_messagingtest_suite():
+def create_test_suite():
     """ create the suite with all the tests """
     test_file_strings = glob.glob('test/*test.py')
     module_strings = ['test.' + string[5:-3]
