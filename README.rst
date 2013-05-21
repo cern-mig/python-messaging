@@ -3,6 +3,7 @@ python-messaging
 ================
 
 .. image:: https://secure.travis-ci.org/cern-mig/python-messaging.png?branch=master
+   :target: https://travis-ci.org/cern-mig/python-messaging
 
 Overview
 ========
