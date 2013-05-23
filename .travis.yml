@@ -10,14 +10,18 @@ python:
   - "3.3"
 # command to install dependencies
 install:
-  - pip install redis --use-mirrors
-  - pip install simplejson --use-mirrors || echo "ok"
-  - pip install dirq --use-mirrors
-  - pip install lz4 --use-mirrors || echo "ok"
-  - pip install pep8 --use-mirrors
+  - pip install --use-mirrors redis
+  - pip install --use-mirrors simplejson || echo "ok"
+  - pip install --use-mirrors dirq
+  - pip install --use-mirrors lz4 || echo "ok"
+  - pip install --use-mirrors pep8
+  - pip install --use-mirrors pylint
+  - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/pylint.sh
+  - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/.pylintrc
 # command to run tests
 script:
   - pep8 messaging example test
+  - sh pylint.sh --rcfile .pylintrc messaging example test || echo "*ignored*"
   - python setup.py test
   - python setup.py install
   - python example/generator_example.py
