@@ -105,16 +105,16 @@ class MessageTest(unittest.TestCase):
 
     def __fullchain(self, **kwargs):
         gen = Generator(**kwargs)
-        msgA = gen.message()
-        msgB = message.deserialize(msgA.serialize())
-        self.assertEqual(msgA.size(), msgB.size(),
+        msg_a = gen.message()
+        msg_b = message.deserialize(msg_a.serialize())
+        self.assertEqual(msg_a.size(), msg_b.size(),
                          "message size not matching")
-        self.assertEqual(msgA, msgB,
+        self.assertEqual(msg_a, msg_b,
                          "Error, not the same after serialization")
-        msgC = msgA.clone()
-        self.assertEqual(msgA, msgC,
+        msg_c = msg_a.clone()
+        self.assertEqual(msg_a, msg_c,
                          "Error, not the same after cloning\n%s\n%s\n" %
-                         (msgA, msgC))
+                         (msg_a, msg_c))
 
     def test_message_jsonify(self):
         """
@@ -131,9 +131,9 @@ class MessageTest(unittest.TestCase):
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
             jsonified = msg.jsonify(option)
-            msgB = message.dejsonify(jsonified)
-        self.assertEqual(msg, msgB, "Error in de/jsonification:\n%s\n%s\n" %
-                         (msg, msgB))
+            msg_b = message.dejsonify(jsonified)
+        self.assertEqual(msg, msg_b, "Error in de/jsonification:\n%s\n%s\n" %
+                         (msg, msg_b))
 
     def test_message_stringify(self):
         """
@@ -150,10 +150,10 @@ class MessageTest(unittest.TestCase):
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
             stringified = msg.stringify(option)
-            msgB = message.destringify(stringified)
-            self.assertEqual(msg, msgB,
+            msg_b = message.destringify(stringified)
+            self.assertEqual(msg, msg_b,
                              "Error in de/stringification:\n%s\n%s\n" %
-                             (msg, msgB))
+                             (msg, msg_b))
 
     def test_message_serialize(self):
         """
@@ -170,8 +170,8 @@ class MessageTest(unittest.TestCase):
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
             serialized = msg.serialize(option)
-            msgB = message.deserialize(serialized)
-            self.assertEqual(msg, msgB, "Error in de/serialization")
+            msg_b = message.deserialize(serialized)
+            self.assertEqual(msg, msg_b, "Error in de/serialization")
 
     def test_md5(self):
         """
