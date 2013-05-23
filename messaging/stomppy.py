@@ -21,8 +21,8 @@ class MessageListener(object):
         protocol level. For this, you need to invoke the "connect"
         method on the connection.
 
-        \param host_and_port a tuple containing the host name and port
-        number to which the connection has been established.
+        :param host_and_port: a tuple containing the host name and port
+        number to which the connection has been established
         """
         pass
 
@@ -36,7 +36,7 @@ class MessageListener(object):
         received, that is after a connection has been established or
         re-established.
 
-        \param message received from the server.
+        :param message: the message received from server
         """
         pass
 
@@ -64,7 +64,7 @@ class MessageListener(object):
         Called by the STOMP connection when a MESSAGE frame is
         received.
 
-        \param message received from the server.
+        :param message: the message received from server
         """
         pass
 
@@ -78,7 +78,7 @@ class MessageListener(object):
         received, sent by the server if requested by the client using
         the 'receipt' header.
 
-        \param message received from the server.
+        :param message: the message received from server
         """
         pass
 
@@ -91,7 +91,7 @@ class MessageListener(object):
         Called by the STOMP connection when an ERROR frame is
         received.
 
-        \param message received from the server.
+        :param message: the message received from server
         """
         pass
 
@@ -104,6 +104,6 @@ class MessageListener(object):
         Called by the STOMP connection when it is in the process
         of sending a message.
 
-        \param message being sent.
+        :param message: the message being sent to server
         """
         pass
