@@ -54,7 +54,7 @@ def generate_int():
     """
     print("generating integers")
     index = 100
-    for counter in range(1000): # pylint: disable=W0612
+    for counter in range(1000):  # pylint: disable=W0612
         integer = generator.rndint(100)
         assert(integer >= 0 and integer <= index * 2)
     print("...integers generation OK!")
