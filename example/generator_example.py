@@ -54,7 +54,7 @@ def generate_int():
     """
     print("generating integers")
     index = 100
-    for counter in range(1000):
+    for counter in range(1000): # pylint: disable=W0612
         integer = generator.rndint(100)
         assert(integer >= 0 and integer <= index * 2)
     print("...integers generation OK!")
@@ -66,8 +66,8 @@ def generate_bin():
     """
     print("generating binary string")
     length = 1024
-    bin = generator.rndbin(length)
-    assert(len(bin) == length)
+    binstr = generator.rndbin(length)
+    assert(len(binstr) == length)
     print("...binary string generation OK!")
 
 
@@ -77,8 +77,8 @@ def generate_b64():
     """
     print("generating base64 string")
     length = 1024
-    b64 = generator.rndb64(length)
-    assert(len(b64) == length)
+    b64str = generator.rndb64(length)
+    assert(len(b64str) == length)
     print("...base64 string generation OK!")
 
 
@@ -94,6 +94,7 @@ def generate_str():
 
 
 def main():
+    """ main """
     generate_int()
     generate_bin()
     generate_b64()

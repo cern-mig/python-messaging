@@ -48,6 +48,7 @@ def handle_message():
 
 
 def main():
+    """ main """
     handle_message()
 
 if __name__ == "__main__":

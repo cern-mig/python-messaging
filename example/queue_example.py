@@ -85,6 +85,7 @@ def dirq_simple():
 
 
 def main():
+    """ main """
     shutil.rmtree(PATH, ignore_errors=True)
     dirq_normal()
     dirq_simple()

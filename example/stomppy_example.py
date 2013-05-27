@@ -22,6 +22,9 @@ import time
 
 
 class MyListener(MessageListener):
+    """
+    Example listener class
+    """
     def __init__(self):
         self.uuid = None
         self.done = False
