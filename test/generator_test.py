@@ -15,11 +15,10 @@
 
 from messaging.generator import Generator
 import messaging.generator as generator
-import re
 import unittest
 
-
 class MessageTest(unittest.TestCase):
+    """ test messaging.generator """
 
     def setUp(self):
         """ setup the test environment """
@@ -28,6 +27,7 @@ class MessageTest(unittest.TestCase):
         """ restore the test environment """
 
     def test_rndint(self):
+        """ test generator.rndint() """
         print("checking integers randomization")
         for index in range(1000):
             integer = int(generator.rndint(index))
@@ -36,13 +36,15 @@ class MessageTest(unittest.TestCase):
         print("...integers randomization ok")
 
     def test_rndbin(self):
+        """ test generator.rndbin() """
         print("checking binary string creation")
         for index in range(1000):
-            bin = generator.rndbin(index)
-            self.assert_(len(bin) == index, "size not expected")
+            binary = generator.rndbin(index)
+            self.assert_(len(binary) == index, "size not expected")
         print("...binary string creation ok")
 
     def test_rndb64(self):
+        """ test generator.rndb64() """
         print("checking base64 string creation")
         for index in range(1000):
             b64 = generator.rndb64(index)
@@ -50,6 +52,7 @@ class MessageTest(unittest.TestCase):
         print("...base64 string creation ok")
 
     def test_rndstr(self):
+        """ test generator.rndstr() """
         print("checking string creation")
         for index in range(1000):
             string = generator.rndstr(index)
@@ -57,24 +60,25 @@ class MessageTest(unittest.TestCase):
         print("...string creation ok")
 
     def test_generator(self):
+        """ test message generation """
         print("checking message generation")
-        types = ['index', 'text', 'binary', 'base64']
-        for type in types:
-            for size in [0, 1024, 10240, 102400]:
+        bctypes = ['index', 'text', 'binary', 'base64']
+        for bctype in bctypes:
+            for bsize in [0, 1024, 10240, 102400]:
                 for header_count in [1, 10]:
-                    gen = Generator(body_content=type,
-                                    body_size=size,
+                    gen = Generator(body_content=bctype,
+                                    body_size=bsize,
                                     header_count=header_count)
-                    for iter in range(5):
+                    for i in range(5):
                         msg = gen.message()
-                        if type != 'index':
-                            self.assertEqual(len(msg.body), size,
+                        if bctype != 'index':
+                            self.assertEqual(len(msg.body), bsize,
                                              "body size not expected")
                         else:
-                            if size == 0:
+                            if bsize == 0:
                                 cor = 0
                             else:
-                                cor = len("%d" % iter)
+                                cor = len("%d" % i)
                             self.assertEqual(len(msg.body), cor,
                                              "body size not expected")
         print("...message generation ok")

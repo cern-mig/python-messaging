@@ -22,11 +22,6 @@ import re
 import sys
 import unittest
 
-try:
-    range = xrange
-except NameError:
-    pass
-
 MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
     MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
@@ -35,7 +30,6 @@ _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
 
-
 def empty_string():
     """ Return empty unicode string based on python version. """
     try:
@@ -43,8 +37,8 @@ def empty_string():
     except NameError:
         return ''
 
-
 class MessageTest(unittest.TestCase):
+    """ test messaging.message """
 
     def setUp(self):
         """ Setup the test environment. """
@@ -56,11 +50,11 @@ class MessageTest(unittest.TestCase):
         """ Iterate over body_content type and size
         and call giveb function.
         """
-        types = ['index', 'text', 'binary', 'base64']
+        bctypes = ['index', 'text', 'binary', 'base64']
         header_count = -5
-        for type in types:
+        for bctype in bctypes:
             for size in [0, 1024, 10240, 102400]:
-                func(body_content=type,
+                func(body_content=bctype,
                      body_size=size,
                      header_count=header_count)
 
@@ -82,7 +76,7 @@ class MessageTest(unittest.TestCase):
         """ Test message compression. """
         print("checking message compression")
         length = 10000
-        body = ''.join(['a' for each in range(length)])
+        body = 'a' * length
         ok = list()
         for module in COMPRESSORS:
             msg = Message(body=body, header={'l': 'ff'})
@@ -104,6 +98,7 @@ class MessageTest(unittest.TestCase):
         print("...message fullchain ok")
 
     def __fullchain(self, **kwargs):
+        """ helper """
         gen = Generator(**kwargs)
         msg_a = gen.message()
         msg_b = message.deserialize(msg_a.serialize())
@@ -127,6 +122,7 @@ class MessageTest(unittest.TestCase):
         print("...message jsonification ok")
 
     def __jsonify(self, **kwargs):
+        """ helper """
         gen = Generator(**kwargs)
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
@@ -146,6 +142,7 @@ class MessageTest(unittest.TestCase):
         print("...message stringification ok")
 
     def __stringify(self, **kwargs):
+        """ helper """
         gen = Generator(**kwargs)
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
@@ -166,6 +163,7 @@ class MessageTest(unittest.TestCase):
         print("...message serialization ok")
 
     def __serialize(self, **kwargs):
+        """ helper """
         gen = Generator(**kwargs)
         msg = gen.message()
         for option in MESSAGE_CONVERT_OPTIONS:
@@ -183,6 +181,7 @@ class MessageTest(unittest.TestCase):
         print("... message checksum ok")
 
     def __md5(self, **kwargs):
+        """ helper """
         gen = Generator(**kwargs)
         checksum = gen.message().md5()
         self.assert_(len(checksum) == 32, "checksum length is not 32")

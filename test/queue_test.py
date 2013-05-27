@@ -24,8 +24,8 @@ import shutil
 import unittest
 from message_test import COMPLIANCE_NAME, EMPTY_BYTES
 
-
 class QueueTest(unittest.TestCase):
+    """ test messaging.queue """
 
     def setUp(self):
         """ Setup the test environment. """
@@ -126,7 +126,7 @@ class QueueTest(unittest.TestCase):
         element = dirq.add_message(msg)
         self.assertEqual(element, "", "add_message should return empty string")
         try:
-            msg2 = dirq.get_message(element)
+            dirq.get_message(element)
             raise AssertionError("null queue get_message should "
                                  "raise NotImplementedError")
         except NotImplementedError:
