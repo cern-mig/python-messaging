@@ -24,6 +24,7 @@ import shutil
 import unittest
 from message_test import COMPLIANCE_NAME, EMPTY_BYTES
 
+
 class QueueTest(unittest.TestCase):
     """ test messaging.queue """
 

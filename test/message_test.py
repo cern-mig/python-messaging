@@ -22,6 +22,7 @@ import re
 import sys
 import unittest
 
+
 MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
     MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
@@ -29,6 +30,7 @@ for compressor in COMPRESSORS:
 _COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
+
 
 def empty_string():
     """ Return empty unicode string based on python version. """

@@ -17,6 +17,7 @@ from messaging.generator import Generator
 import messaging.generator as generator
 import unittest
 
+
 class MessageTest(unittest.TestCase):
     """ test messaging.generator """
 
