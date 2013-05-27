@@ -22,7 +22,6 @@ import re
 import sys
 import unittest
 
-
 MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
     MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
@@ -38,6 +37,7 @@ def empty_string():
         return unicode('')
     except NameError:
         return ''
+
 
 class MessageTest(unittest.TestCase):
     """ test messaging.message """
