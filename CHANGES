@@ -1,7 +1,8 @@
 Change log for python-messaging
 
-???	???
+1.1	Tue Jan  5 2016
 	* [lc] removed Redis support
+	* [lc] fixed pylint warnings
 
 1.0	Thu Feb 28 2013
 	* [mp] documentation improvements
