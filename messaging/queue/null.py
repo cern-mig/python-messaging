@@ -29,7 +29,7 @@ from the :py:class:`dirq.QueueNull.QueueNull` module that provides
 a generic "black hole" queue: added messages will disappear
 immediately so the queue will therefore always appear empty.
 
-Copyright (C) 2013 CERN
+Copyright (C) 2013-2016 CERN
 """
 
 from messaging.message import Message

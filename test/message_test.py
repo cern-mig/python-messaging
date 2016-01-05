@@ -26,7 +26,7 @@ MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
     MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
 
-_COMPLIANCE_NAME = "^[a-z0-9]{32}([\.-]{1}\d+)*$"
+_COMPLIANCE_NAME = "^[a-z0-9]{32}([.-]{1}\d+)*$"
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
 
@@ -79,15 +79,15 @@ class MessageTest(unittest.TestCase):
         print("checking message compression")
         length = 10000
         body = 'a' * length
-        ok = list()
+        done = list()
         for module in COMPRESSORS:
             msg = Message(body=body, header={'l': 'ff'})
             jsonified = msg.jsonify({'compression': module})
             self.assert_(len(jsonified['body']) < length * 0.9,
                          "message should have been compressed with %s" %
                          module)
-            ok.append(module)
-        print("...message compression ok for %s" % ",".join(ok))
+            done.append(module)
+        print("...message compression ok for %s" % ",".join(done))
 
     def test_message_fullchain(self):
         """
@@ -217,7 +217,7 @@ class MessageTest(unittest.TestCase):
                               % (each, error))
                     else:
                         raise error
-                md5 = re.split('[\.-]', each)[0]
+                md5 = re.split('[.-]', each)[0]
                 msg_md5 = msg.md5()
                 self.assertEqual(md5, msg_md5,
                                  "deserialization of %s failed:%s\nresult:%s"

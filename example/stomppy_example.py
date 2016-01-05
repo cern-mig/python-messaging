@@ -12,7 +12,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- Copyright (C) 2013 CERN
+ Copyright (C) 2013-2016 CERN
 """
 
 from messaging.message import Message
@@ -57,8 +57,8 @@ def stomppy_test():
     conn.send(msg.body, **msg.header)
     print("sending message %s" % msg)
 
-    t1 = time.time()
-    while not listener.done and (time.time() - t1 < 2):
+    start = time.time()
+    while not listener.done and (time.time() - start < 2):
         time.sleep(0.1)
     conn.disconnect()
     print("...stomppy example ok")

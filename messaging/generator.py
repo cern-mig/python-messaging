@@ -24,7 +24,7 @@ Description
 This module provides a versatile message generator that can be useful
 for stress testing or benchmarking messaging brokers or libraries.
 
-Copyright (C) 2013 CERN
+Copyright (C) 2013-2016 CERN
 """
 
 import base64
@@ -80,7 +80,7 @@ def rndstr(size):
     while size > 0:
         binary = rndbin(int(size * 1.4 + 1)).decode()
         rnd += ''.join([char for char in binary
-                       if ord(char) > 31 and ord(char) < 127])
+                        if ord(char) > 31 and ord(char) < 127])
         size -= len(binary)
     if size:
         rnd = rnd[0:size]

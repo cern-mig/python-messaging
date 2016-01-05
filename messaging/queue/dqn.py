@@ -48,7 +48,7 @@ message::
 The message header is therefore stored as a table and the message body
 is stored either as a text or binary string.
 
-Copyright (C) 2013 CERN
+Copyright (C) 2013-2016 CERN
 """
 
 from messaging.message import Message

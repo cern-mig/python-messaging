@@ -72,11 +72,11 @@ class QueueTest(unittest.TestCase):
                     error = sys.exc_info()[1]
                     if "decoding supported but not installed" in \
                             "%s" % error:
-                        print("skipping compliance test for %s: %s" % (each,
-                              error))
+                        print("skipping compliance test for %s: %s"
+                              % (each, error))
                     else:
                         raise error
-                md5 = re.split('[\.-]', each)[0]
+                md5 = re.split('[.-]', each)[0]
                 msg_md5 = msg.md5()
                 self.assertEqual(md5, msg_md5,
                                  "deserialization of %s failed:%s\nresult:%s"
