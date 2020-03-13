@@ -20,7 +20,7 @@ purpose is to offer a unified method to create a new queue. The
 functionality is implemented in child modules such as
 :py:mod:`messaging.queue.dqs.DQS`.
 
-Copyright (C) 2013-2016 CERN
+Copyright (C) CERN 2013-2020
 """
 
 import sys

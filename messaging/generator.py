@@ -24,7 +24,7 @@ Description
 This module provides a versatile message generator that can be useful
 for stress testing or benchmarking messaging brokers or libraries.
 
-Copyright (C) 2013-2016 CERN
+Copyright (C) CERN 2013-2020
 """
 
 import base64

@@ -228,7 +228,7 @@ To sum up::
                  v  |
             binary string
 
-Copyright (C) 2013-2016 CERN
+Copyright (C) CERN 2013-2020
 """
 
 import base64
