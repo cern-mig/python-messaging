@@ -3,18 +3,20 @@ notifications:
     - mig-travis@cern.ch
 language: python
 python:
-  - "2.6"
   - "2.7"
-  - "3.2"
-  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
 # command to install dependencies
 install:
-  - pip install --use-mirrors dirq
-  - pip install --use-mirrors simplejson || echo "ok"
-  - pip install --use-mirrors stomp.py || echo "ok"
-  - pip install --use-mirrors lz4 || echo "ok"
-  - pip install --use-mirrors pep8
-  - pip install --use-mirrors pylint
+  - pip install dirq
+  - pip install simplejson || echo "ok"
+  - pip install stomp.py || echo "ok"
+  - pip install lz4 || echo "ok"
+  - pip install pep8
+  - pip install pylint
   - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/pylint.sh
   - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/.pylintrc
 # command to run tests
