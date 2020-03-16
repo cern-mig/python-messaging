@@ -101,5 +101,6 @@ def main():
     generate_str()
     generate_messages()
 
+
 if __name__ == "__main__":
     main()

@@ -15,13 +15,13 @@ install:
   - pip install simplejson || echo "ok"
   - pip install stomp.py || echo "ok"
   - pip install lz4 || echo "ok"
-  - pip install pep8
+  - pip install pycodestyle
   - pip install pylint
   - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/pylint.sh
   - curl -O -R -S -f -s https://raw.github.com/cern-mig/dev-tools/master/python/.pylintrc
 # command to run tests
 script:
-  - pep8 messaging test example/*.py
+  - pycodestyle messaging test example/*.py
   - sh pylint.sh messaging test example/*.py || echo "*ignored*"
   - python setup.py test
   - python setup.py install

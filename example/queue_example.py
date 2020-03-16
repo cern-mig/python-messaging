@@ -91,5 +91,6 @@ def main():
     dirq_simple()
     shutil.rmtree(PATH, ignore_errors=True)
 
+
 if __name__ == "__main__":
     main()

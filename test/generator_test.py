@@ -84,5 +84,6 @@ class MessageTest(unittest.TestCase):
                                              "body size not expected")
         print("...message generation ok")
 
+
 if __name__ == "__main__":
     unittest.main()

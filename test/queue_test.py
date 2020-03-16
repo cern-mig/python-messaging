@@ -134,5 +134,6 @@ class QueueTest(unittest.TestCase):
             pass
         print("...%s queue ok" % qtype)
 
+
 if __name__ == "__main__":
     unittest.main()

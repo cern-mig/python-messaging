@@ -63,5 +63,6 @@ def stomppy_test():
     conn.disconnect()
     print("...stomppy example ok")
 
+
 if __name__ == "__main__":
     stomppy_test()

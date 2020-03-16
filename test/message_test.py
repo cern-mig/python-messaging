@@ -26,7 +26,7 @@ MESSAGE_CONVERT_OPTIONS = [dict(), ]
 for compressor in COMPRESSORS:
     MESSAGE_CONVERT_OPTIONS.append({'compression': compressor})
 
-_COMPLIANCE_NAME = "^[a-z0-9]{32}([.-]{1}\d+)*$"
+_COMPLIANCE_NAME = r'^[a-z0-9]{32}([.-]{1}\d+)*$'
 COMPLIANCE_NAME = re.compile(_COMPLIANCE_NAME)
 EMPTY_BYTES = ''.encode()
 
@@ -224,6 +224,7 @@ class MessageTest(unittest.TestCase):
                                  % (each, msg, msg_md5))
                 counter += 1
         print("...compliance ok, checked for %s messages" % counter)
+
 
 if __name__ == "__main__":
     unittest.main()
