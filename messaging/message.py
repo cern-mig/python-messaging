@@ -252,7 +252,7 @@ COMPRESSORS_SUPPORTED = {
     "snappy": "snappy",
     "zlib": "zlib",
 }
-AVAILABLE_DECODING = COMPRESSORS_SUPPORTED.keys()
+AVAILABLE_DECODING = list(COMPRESSORS_SUPPORTED.keys())
 AVAILABLE_DECODING.extend(["base64", "utf8"])
 _COMPRESSORS = dict()
 for name, module in COMPRESSORS_SUPPORTED:
