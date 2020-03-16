@@ -255,9 +255,13 @@ COMPRESSORS_SUPPORTED = {
 AVAILABLE_DECODING = list(COMPRESSORS_SUPPORTED.keys())
 AVAILABLE_DECODING.extend(["base64", "utf8"])
 _COMPRESSORS = dict()
-for name, module in COMPRESSORS_SUPPORTED:
+for name, module in COMPRESSORS_SUPPORTED.items():
     try:
-        _COMPRESSORS[name] = __import__(module)
+        spec = module.split('.')
+        if len(spec) == 1:
+            _COMPRESSORS[name] = __import__(module)
+        else:
+            _COMPRESSORS[name] = __import__(module, fromlist=[spec[1]])
     except ImportError:
         pass
     except SystemError:
