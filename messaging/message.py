@@ -247,15 +247,17 @@ except ImportError:
 import sys
 from messaging.error import MessageError
 
-COMPRESSORS_SUPPORTED = ["lz4", "snappy", "zlib"]
-AVAILABLE_DECODING = list(COMPRESSORS_SUPPORTED)
-AVAILABLE_DECODING.extend(["base64", "utf8", ])
+COMPRESSORS_SUPPORTED = {
+    "lz4": "lz4.block",
+    "snappy": "snappy",
+    "zlib": "zlib",
+}
+AVAILABLE_DECODING = COMPRESSORS_SUPPORTED.keys()
+AVAILABLE_DECODING.extend(["base64", "utf8"])
 _COMPRESSORS = dict()
-for module in COMPRESSORS_SUPPORTED:
+for name, module in COMPRESSORS_SUPPORTED:
     try:
-        _COMPRESSORS[module] = __import__(module)
-        if module == "zlib":
-            _COMPRESSORS[module].uncompress = _COMPRESSORS[module].decompress
+        _COMPRESSORS[name] = __import__(module)
     except ImportError:
         pass
     except SystemError:
@@ -319,7 +321,10 @@ def dejsonify(obj):
         body = base64.b64decode(body)
     for method in _COMPRESSORS:
         if method in encoding:
-            body = _COMPRESSORS[method].uncompress(body)
+            if 'decompress' in dir(_COMPRESSORS[method]):
+                body = _COMPRESSORS[method].decompress(body)
+            else:
+                body = _COMPRESSORS[method].uncompress(body)
     if 'utf8' in encoding:
         body = body.decode('utf-8')
     if is_bytes(body):
