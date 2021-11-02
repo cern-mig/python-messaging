@@ -32,8 +32,8 @@ class MessageTest(unittest.TestCase):
         print("checking integers randomization")
         for index in range(1000):
             integer = int(generator.rndint(index))
-            self.assert_(integer >= 0 and integer <= index * 2,
-                         "size not expected")
+            self.assertTrue(integer >= 0 and integer <= index * 2,
+                            "size not expected")
         print("...integers randomization ok")
 
     def test_rndbin(self):
@@ -41,7 +41,7 @@ class MessageTest(unittest.TestCase):
         print("checking binary string creation")
         for index in range(1000):
             binary = generator.rndbin(index)
-            self.assert_(len(binary) == index, "size not expected")
+            self.assertTrue(len(binary) == index, "size not expected")
         print("...binary string creation ok")
 
     def test_rndb64(self):
@@ -49,7 +49,7 @@ class MessageTest(unittest.TestCase):
         print("checking base64 string creation")
         for index in range(1000):
             b64 = generator.rndb64(index)
-            self.assert_(len(b64) == index, "size not expected")
+            self.assertTrue(len(b64) == index, "size not expected")
         print("...base64 string creation ok")
 
     def test_rndstr(self):
@@ -57,7 +57,7 @@ class MessageTest(unittest.TestCase):
         print("checking string creation")
         for index in range(1000):
             string = generator.rndstr(index)
-            self.assert_(len(string) == index, "size not expected")
+            self.assertTrue(len(string) == index, "size not expected")
         print("...string creation ok")
 
     def test_generator(self):

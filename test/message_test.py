@@ -83,9 +83,9 @@ class MessageTest(unittest.TestCase):
         for module in COMPRESSORS:
             msg = Message(body=body, header={'l': 'ff'})
             jsonified = msg.jsonify({'compression': module})
-            self.assert_(len(jsonified['body']) < length * 0.9,
-                         "message should have been compressed with %s" %
-                         module)
+            self.assertTrue(len(jsonified['body']) < length * 0.9,
+                            "message should have been compressed with %s" %
+                            module)
             done.append(module)
         print("...message compression ok for %s" % ",".join(done))
 
@@ -186,7 +186,7 @@ class MessageTest(unittest.TestCase):
         """ helper """
         gen = Generator(**kwargs)
         checksum = gen.message().md5()
-        self.assert_(len(checksum) == 32, "checksum length is not 32")
+        self.assertTrue(len(checksum) == 32, "checksum length is not 32")
 
     def test_messages_compliance(self):
         """
