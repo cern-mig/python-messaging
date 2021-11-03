@@ -2,7 +2,7 @@
 This class add support for Message module in stomppy default listener.
 It can be passed directly to :py:func:`Connection.set_listener`.
 
-Copyright (C) CERN 2013-2020
+Copyright (C) CERN 2013-2021
 """
 
 from messaging.message import Message
