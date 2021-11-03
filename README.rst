@@ -2,8 +2,8 @@
 python-messaging
 ================
 
-.. image:: https://secure.travis-ci.org/cern-mig/python-messaging.png?branch=master
-   :target: https://travis-ci.org/cern-mig/python-messaging
+.. image:: https://github.com/cern-mig/python-messaging/actions/workflows/test.yml/badge.svg
+
 
 Overview
 ========
