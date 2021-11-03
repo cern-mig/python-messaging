@@ -18,8 +18,8 @@ Copyright (C) CERN 2013-2021
 """
 
 AUTHOR = "Massimo Paladin <massimo.paladin@gmail.com>"
-VERSION = "1.1"
-DATE = "5 Jan 2016"
+VERSION = "1.2"
+DATE = "3 Nov 2021"
 __author__ = AUTHOR
 __version__ = VERSION
 __date__ = DATE
