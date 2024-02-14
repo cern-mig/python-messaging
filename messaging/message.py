@@ -464,7 +464,7 @@ class Message(object):
                     _base64_it(obj)
                 else:
                     obj["body"] = self.body
-                    del(obj["encoding"])
+                    del (obj["encoding"])
         else:  # binary body
             obj["encoding"] = dict()
             if compression:
@@ -474,7 +474,7 @@ class Message(object):
             if obj["encoding"]:
                 obj["encoding"] = "+".join(obj["encoding"].keys())
             else:
-                del(obj["encoding"])
+                del (obj["encoding"])
         return obj
 
     def stringify(self, option=dict()):

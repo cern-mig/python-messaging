@@ -40,8 +40,8 @@ def generate_messages():
                     header_value_size=-32,
                     header_name_prefix="rnd-")
     msg = gen.message()
-    assert(len(msg.body) == 1024)
-    assert(len(msg.header) == 6)
+    assert (len(msg.body) == 1024)
+    assert (len(msg.header) == 6)
     print("...message generation OK!")
 
 
@@ -56,7 +56,7 @@ def generate_int():
     index = 100
     for counter in range(1000):  # pylint: disable=W0612
         integer = generator.rndint(100)
-        assert(integer >= 0 and integer <= index * 2)
+        assert (integer >= 0 and integer <= index * 2)
     print("...integers generation OK!")
 
 
@@ -67,7 +67,7 @@ def generate_bin():
     print("generating binary string")
     length = 1024
     binstr = generator.rndbin(length)
-    assert(len(binstr) == length)
+    assert (len(binstr) == length)
     print("...binary string generation OK!")
 
 
@@ -78,7 +78,7 @@ def generate_b64():
     print("generating base64 string")
     length = 1024
     b64str = generator.rndb64(length)
-    assert(len(b64str) == length)
+    assert (len(b64str) == length)
     print("...base64 string generation OK!")
 
 
@@ -89,7 +89,7 @@ def generate_str():
     print("generating string")
     length = 1024
     string = generator.rndstr(length)
-    assert(len(string) == length)
+    assert (len(string) == length)
     print("...string generation OK!")
 
 

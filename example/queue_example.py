@@ -46,11 +46,11 @@ def dirq_normal():
     post_msg2 = None
     if dirq.lock(element2):
         post_msg2 = dirq.get_message(element2)
-    assert(post_msg2 == msg2)
+    assert (post_msg2 == msg2)
     post_msg1 = None
     if dirq.lock(element1):
         post_msg1 = dirq.get_message(element1)
-    assert(post_msg1 == msg1)
+    assert (post_msg1 == msg1)
     print("...dirq normal OK!")
 
 
@@ -76,11 +76,11 @@ def dirq_simple():
     post_msg2 = None
     if dirq.lock(element2):
         post_msg2 = dirq.get_message(element2)
-    assert(post_msg2 == msg2)
+    assert (post_msg2 == msg2)
     post_msg1 = None
     if dirq.lock(element1):
         post_msg1 = dirq.get_message(element1)
-    assert(post_msg1 == msg1)
+    assert (post_msg1 == msg1)
     print("...dirq simple OK!")
 
 
