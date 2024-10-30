@@ -4,6 +4,7 @@ python-messaging
 
 .. image:: https://github.com/cern-mig/python-messaging/actions/workflows/test.yml/badge.svg
 
+WARNING: This software is not maintained anymore.
 
 Overview
 ========
